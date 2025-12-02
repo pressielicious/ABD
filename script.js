@@ -10,8 +10,8 @@ let people = [
   "@SAMUD SENROSE","@Tai Man","@Y asahi","@Zack Macarov","@zai chi"
 ];
 
-// Track previous assignment to alternate BB/ABM
-let lastAssignment = {}; // key: worker, value: "BB" or "ABM"
+// Load previous last assignments from localStorage
+let lastAssignment = JSON.parse(localStorage.getItem("lastAssignment")) || {};
 
 function assignCenters() {
   let assignments = [];
@@ -19,7 +19,7 @@ function assignCenters() {
   // Shuffle workers randomly
   people = people.sort(() => Math.random() - 0.5);
 
-  // Track count per center
+  // Track center counts for balance
   let centerCounts = { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 };
 
   people.forEach(worker => {
@@ -28,11 +28,11 @@ function assignCenters() {
     let todayPrefix = last === "BB" ? "ABM" : "BB";
     lastAssignment[worker] = todayPrefix; // update for next day
 
-    // Randomly assign SS or CT
+    // Randomly pick SS or CT
     let type = Math.random() < 0.5 ? "SS" : "CT";
     let center = todayPrefix + type;
 
-    // Ensure even distribution among centers
+    // Balance distribution
     let minCount = Math.min(...centers.map(c => centerCounts[c]));
     if(centerCounts[center] > minCount){
       let options = centers.filter(c => c.startsWith(todayPrefix) && centerCounts[c] === minCount);
@@ -42,6 +42,9 @@ function assignCenters() {
     assignments.push({ name: worker, center });
     centerCounts[center]++;
   });
+
+  // Save updated lastAssignment to localStorage
+  localStorage.setItem("lastAssignment", JSON.stringify(lastAssignment));
 
   return assignments;
 }
