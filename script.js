@@ -1,108 +1,84 @@
 const centers = ["BBSS", "BBCT", "ABMSS", "ABMCT"];
-
-// People list from your data
-let people = [
-  { name: "@myrulz4107", centers: ["BBSS", "ABMCT"] },
-  { name: "@gulahangus", centers: ["BBCT"] },
-  { name: "@alexzandra_1", centers: ["BBCT", "ABMSS"] },
-  { name: "@apinmaa", centers: ["ABMSS", "BBCT"] },
-  { name: "@pressielicious", centers: ["BBCT", "ABMSS"] },
-  { name: "@damzhensem", centers: ["BBCT", "ABMSS"] },
-  { name: "@krrot.", centers: ["BBSS", "ABMCT"] },
-  { name: "@farizhaziqq", centers: ["BBSS", "ABMCT"] },
-  { name: "@zzfumi99", centers: ["BBCT", "ABMSS"] },
-  { name: "@dyoduolist", centers: ["BBCT", "BBSS"] },
-  { name: "@el123__", centers: ["BBCT", "BBSS"] },
-  { name: "@luqvanderlinde", centers: ["ABMSS", "BBSS"] },
-  { name: "@fasyaleleh", centers: ["ABMSS", "BBCT"] },
-  { name: "@jomalik.11", centers: ["ABMCT", "ABMSS"] },
-  { name: "@vfxjja", centers: ["ABMSS", "BBCT"] },
-  { name: "@fatcat39", centers: ["ABMSS", "BBSS"] },
-  { name: "@weywen.", centers: ["BBCT", "BBSS"] },
-  { name: "@ihikome", centers: ["BBCT", "ABMSS"] },
-  { name: "@ezzy1816", centers: ["BBSS", "ABMCT"] },
-  { name: "@iska0832", centers: ["ABMCT", "BBSS"] },
-  { name: "@502035375338815489", centers: ["BBSS"] },
-  { name: "@unknownpeople2205", centers: ["ABMCT", "BBCT"] },
-  { name: "@heroro90", centers: ["BBSS", "ABMCT"] },
-  { name: "@makmin1612", centers: ["BBSS", "ABMSS"] },
-  { name: "@maellambong07", centers: ["BBCT", "ABMSS"] },
-  { name: "@aydin3991", centers: ["BBCT", "ABMCT"] },
-  { name: "@syamm_.", centers: ["BBSS", "ABMCT"] },
-  { name: "@emieazehan", centers: ["ABMSS", "ABMCT"] },
-  { name: "@frhnhkim", centers: ["BBSS", "ABMCT"] },
-  { name: "@mellahmad", centers: ["ABMSS", "BBCT"] },
-  { name: "@xyuunv", centers: ["ABMCT", "BBSS"] },
-  { name: "@synn2k", centers: ["ABMCT", "ABMSS"] },
-  { name: "@p0jie.", centers: [] },
-  { name: "@ashhz7", centers: ["ABMCT", "BBSS"] },
-  { name: "@par0yy", centers: ["BBSS", "ABMCT"] },
-  { name: "@samud.muda.mudi", centers: ["ABMSS", "BBCT"] },
-  { name: "@taimanobi", centers: ["ABMCT", "ABMSS"] },
-  { name: "@calvyn2", centers: ["ABMCT", "BBCT"] },
-  { name: "@.skrtskrt", centers: ["ABMSS", "BBCT"] },
-  { name: "@zafrannn__", centers: ["ABMSS", "BBCT"] },
-];
-
 const weekDays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 
-function assignWeekly() {
-  const weekHistory = {};
+// People with cumulative counts (start empty or fill with previous week)
+let people = [
+  { name: "@myrulz4107", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
+  { name: "@gulahangus", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
+  { name: "@alexzandra_1", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
+  { name: "@apinmaa", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
+  { name: "@pressielicious", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
+  { name: "@damzhensem", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
+  { name: "@krrot.", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
+  { name: "@farizhaziqq", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
+  { name: "@zzfumi99", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
+  { name: "@dyoduolist", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
+  // add remaining people...
+];
 
+// Assign one center per day per person (balanced)
+function assignBalancedWeek() {
   weekDays.forEach(day => {
     let centerLoad = { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 };
 
-    let dayAssignments = people.map(person => {
-      let available = centers.filter(c => !person.centers.includes(c));
-      let newCenter = available.length > 0 
-        ? available.sort((a,b) => centerLoad[a]-centerLoad[b])[0]
-        : null;
-
-      if(newCenter) {
-        person.centers.push(newCenter);
-        centerLoad[newCenter]++;
-      }
-
-      return { name: person.name, centers: [...person.centers] };
+    // Count previous assignments to calculate load
+    people.forEach(p => {
+      Object.keys(p.counts).forEach(c => {
+        centerLoad[c] += p.counts[c];
+      });
     });
 
-    weekHistory[day] = dayAssignments;
-  });
+    // Assign centers
+    people.forEach(p => {
+      // Choose the center they've done least (min count)
+      let minCount = Math.min(...centers.map(c => p.counts[c]));
+      let leastCenters = centers.filter(c => p.counts[c] === minCount);
 
-  return weekHistory;
+      // Among leastCenters, pick the one with lowest global load
+      let newCenter = leastCenters.sort((a,b) => centerLoad[a]-centerLoad[b])[0];
+
+      // Update counts and history
+      p.counts[newCenter]++;
+      p.history.push(newCenter);
+      centerLoad[newCenter]++;
+    });
+  });
 }
 
-function renderWeekTable(history) {
+// Render tables per day
+function renderWeekTables() {
   const output = document.getElementById("output");
   output.innerHTML = "";
 
-  weekDays.forEach(day => {
+  weekDays.forEach((day, idx) => {
     const h2 = document.createElement("h2");
     h2.textContent = day;
     output.appendChild(h2);
 
     const table = document.createElement("table");
     const header = document.createElement("tr");
-    header.innerHTML = "<th>No</th><th>Name</th><th>Centers</th>";
+    header.innerHTML = "<th>No</th><th>Name</th><th>Center</th>";
     table.appendChild(header);
 
-    history[day].forEach((person, i) => {
+    people.forEach((p, i) => {
       const row = document.createElement("tr");
-      row.innerHTML = `<td>${i+1}</td><td>${person.name}</td><td>${person.centers.join(", ")}</td>`;
+      row.innerHTML = `<td>${i+1}</td><td>${p.name}</td><td>${p.history[idx]}</td>`;
       table.appendChild(row);
     });
 
     output.appendChild(table);
 
+    // Tally per center
     const tally = { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 };
-    history[day].forEach(p => p.centers.forEach(c => tally[c]++));
+    people.forEach(p => tally[p.history[idx]]++);
     const tallyDiv = document.createElement("div");
     tallyDiv.innerHTML = `<strong>Center Tally:</strong> BBSS: ${tally.BBSS}, BBCT: ${tally.BBCT}, ABMSS: ${tally.ABMSS}, ABMCT: ${tally.ABMCT}`;
     output.appendChild(tallyDiv);
   });
 }
 
+// Generate button click
 document.getElementById("generate").addEventListener("click", () => {
-  const weekHistory = assignWeekly();
-  renderWeekTable(weekHistory);
+  assignBalancedWeek();
+  renderWeekTables();
 });
