@@ -1,51 +1,53 @@
 const centers = ["BBSS", "BBCT", "ABMSS", "ABMCT"];
 const weekDays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 
-// People with cumulative counts (start empty or fill with previous week)
+// People with counts and last assignment
 let people = [
-  { name: "@myrulz4107", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
-  { name: "@gulahangus", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
-  { name: "@alexzandra_1", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
-  { name: "@apinmaa", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
-  { name: "@pressielicious", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
-  { name: "@damzhensem", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
-  { name: "@krrot.", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
-  { name: "@farizhaziqq", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
-  { name: "@zzfumi99", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
-  { name: "@dyoduolist", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [] },
+  { name: "@myrulz4107", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [], lastCenter: null },
+  { name: "@gulahangus", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [], lastCenter: null },
+  { name: "@alexzandra_1", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [], lastCenter: null },
+  { name: "@apinmaa", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [], lastCenter: null },
+  { name: "@pressielicious", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [], lastCenter: null },
+  { name: "@damzhensem", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [], lastCenter: null },
+  { name: "@krrot.", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [], lastCenter: null },
+  { name: "@farizhaziqq", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [], lastCenter: null },
+  { name: "@zzfumi99", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [], lastCenter: null },
+  { name: "@dyoduolist", counts: { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 }, history: [], lastCenter: null },
   // add remaining people...
 ];
 
-// Assign one center per day per person (balanced)
+// Assign centers for a full week
 function assignBalancedWeek() {
   weekDays.forEach(day => {
     let centerLoad = { BBSS:0, BBCT:0, ABMSS:0, ABMCT:0 };
 
-    // Count previous assignments to calculate load
+    // Count previous assignments to calculate global load
     people.forEach(p => {
-      Object.keys(p.counts).forEach(c => {
-        centerLoad[c] += p.counts[c];
-      });
+      Object.keys(p.counts).forEach(c => centerLoad[c] += p.counts[c]);
     });
 
-    // Assign centers
+    // Assign centers for this day
     people.forEach(p => {
-      // Choose the center they've done least (min count)
-      let minCount = Math.min(...centers.map(c => p.counts[c]));
-      let leastCenters = centers.filter(c => p.counts[c] === minCount);
+      // Exclude last day center to avoid repeating
+      let available = centers.filter(c => c !== p.lastCenter);
+
+      // Find the ones with minimum personal count
+      let minCount = Math.min(...available.map(c => p.counts[c]));
+      let leastCenters = available.filter(c => p.counts[c] === minCount);
 
       // Among leastCenters, pick the one with lowest global load
       let newCenter = leastCenters.sort((a,b) => centerLoad[a]-centerLoad[b])[0];
 
-      // Update counts and history
+      // Assign
       p.counts[newCenter]++;
       p.history.push(newCenter);
+      p.lastCenter = newCenter;
       centerLoad[newCenter]++;
     });
   });
 }
 
-// Render tables per day
+// Render weekly tables
 function renderWeekTables() {
   const output = document.getElementById("output");
   output.innerHTML = "";
@@ -77,7 +79,7 @@ function renderWeekTables() {
   });
 }
 
-// Generate button click
+// Button click
 document.getElementById("generate").addEventListener("click", () => {
   assignBalancedWeek();
   renderWeekTables();
