@@ -1,114 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
   <title>Rider Schedule</title>
+</head>
+<body>
 
-  <!-- Bebas Neue font -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<h1>Rider Schedule</h1>
 
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<table border="1" cellpadding="8" cellspacing="0">
+  <tr>
+    <th>Team</th>
+    <th>8 Dec</th>
+    <th>9 Dec</th>
+    <th>10 Dec</th>
+    <th>11 Dec</th>
+  </tr>
 
-    body {
-      background: #f5f5f5;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      color: #111;
-      display: flex;
-      justify-content: center;
-      padding: 20px;
-    }
+  <tr>
+    <td>Team 1</td>
+    <td>BBCT</td>
+    <td>BBSS</td>
+    <td>ABMCT</td>
+    <td>BBPB</td>
+  </tr>
 
-    .app {
-      width: 100%;
-      max-width: 1000px;
-      background: #fff;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    }
+  <tr>
+    <td>Team 2</td>
+    <td>BBSS</td>
+    <td>ABMCT</td>
+    <td>BBPB</td>
+    <td>BBCT</td>
+  </tr>
 
-    .header {
-      font-family: 'Bebas Neue', cursive;
-      font-size: 42px;
-      letter-spacing: 3px;
-      margin-bottom: 30px;
-      text-align: center;
-    }
+  <tr>
+    <td>Team 3</td>
+    <td>ABMCT</td>
+    <td>BBPB</td>
+    <td>BBCT</td>
+    <td>BBSS</td>
+  </tr>
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-    }
+  <tr>
+    <td>Team 4</td>
+    <td>BBPB</td>
+    <td>BBCT</td>
+    <td>BBSS</td>
+    <td>ABMCT</td>
+  </tr>
+</table>
 
-    .card {
-      border: 1px solid #e1e1e1;
-      border-radius: 10px;
-      padding: 16px;
-      background: #fff;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .team-title {
-      font-family: 'Bebas Neue', cursive;
-      font-size: 22px;
-      letter-spacing: 2px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid #e1e1e1;
-    }
-
-    .badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .badge {
-      font-size: 12px;
-      font-weight: 600;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #000;
-      color: #fff;
-      letter-spacing: 0.3px;
-      white-space: nowrap;
-    }
-
-    .toggle-btn {
-      margin-top: 8px;
-      background: none;
-      border: none;
-      font-family: 'Bebas Neue', cursive;
-      font-size: 16px;
-      letter-spacing: 2px;
-      cursor: pointer;
-      padding: 8px 0;
-      border-top: 1px solid #e1e1e1;
-      color: #111;
-    }
-
-    .members {
-      display: none;
-      flex-direction: column;
-      gap: 6px;
-      padding-top: 8px;
-    }
-
-    .member {
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+</body>
+</html>    }
 
     .member::before {
       content: "–";
