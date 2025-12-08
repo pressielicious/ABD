@@ -37,7 +37,7 @@
 
     .app {
       width: 100%;
-      max-width: 1850px; /* EVEN BIGGER PAGE */
+      max-width: 1600px;
       background: rgba(15, 15, 15, 0.88);
       border-radius: 26px;
       padding: 40px;
@@ -48,16 +48,16 @@
     .header {
       font-family: "Bebas Neue", cursive;
       text-align: center;
-      font-size: 52px;
+      font-size: 48px;
       margin-bottom: 25px;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
     }
 
     /* Grid */
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 32px;
+      gap: 28px;
       margin-bottom: 60px;
     }
 
@@ -86,7 +86,7 @@
 
     .card-title {
       font-family: "Bebas Neue", cursive;
-      font-size: 30px;
+      font-size: 26px;
     }
 
     .badges {
@@ -98,10 +98,10 @@
 
     .badge {
       width: 100%;
-      max-width: 260px;
-      font-size: 16px;
+      max-width: 250px;
+      font-size: 15px;
       font-weight: 700;
-      padding: 12px 16px;
+      padding: 10px 14px;
       border-radius: 999px;
       text-align: center;
     }
@@ -152,7 +152,7 @@
 
     .member {
       width: 46%;
-      font-size: 16px;
+      font-size: 15px;
       display: flex;
       justify-content: flex-start;
       margin-bottom: 6px;
@@ -162,7 +162,7 @@
       .member { width: 100%; }
     }
 
-    /* --- UPGRADED INFOGRAPHICS --- */
+    /* --- TOTAL HOURS CIRCLES (NO COLOR) --- */
     .total-hours {
       margin-top: 70px;
     }
@@ -170,52 +170,15 @@
     .infographic-circle {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 35px;
-      margin-top: 35px;
+      gap: 30px;
+      margin-top: 30px;
       justify-items: center;
     }
 
-    /* Outer animated gradient ring */
     .circle-box {
-      width: 190px;
-      height: 190px;
-      position: relative;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    .circle-box::before {
-      content: "";
-      position: absolute;
-      width: 240px;
-      height: 240px;
-      background: conic-gradient(
-        #00ffb7,
-        #00aaff,
-        #c600ff,
-        #ff008c,
-        #ff5f00,
-        #ffe600,
-        #00ffb7
-      );
-      animation: spin 3.5s linear infinite;
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    /* Inner content circle */
-    .circle-inner {
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(6px);
+      width: 170px;
+      height: 170px;
+      background: rgba(255, 255, 255, 0.08);
       border-radius: 50%;
       border: 3px solid rgba(255, 255, 255, 0.25);
       display: flex;
@@ -223,30 +186,30 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
     }
 
-    /* Text styling */
+    .circle-box:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.3);
+    }
+
     .circle-week {
       font-family: "Bebas Neue", cursive;
       font-size: 28px;
       letter-spacing: 1px;
+      margin-bottom: 5px;
+      color: #fff;
     }
 
     .circle-hours {
-      margin-top: 3px;
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 700;
+      color: #fff;
     }
 
-    /* Completed = green glow */
-    .completed .circle-inner {
-      box-shadow: 0 0 25px rgba(0, 255, 140, 0.65);
-    }
-
-    /* Pending = yellow dim */
-    .pending .circle-inner {
+    .pending {
       opacity: 0.45;
-      box-shadow: 0 0 16px rgba(255, 218, 0, 0.25);
     }
   </style>
 </head>
@@ -256,7 +219,6 @@
 
     <div class="header">Shift 1 - Rider Schedule</div>
 
-    <!-- Rider Schedule -->
     <div class="grid">
 
       <!-- TEAM 1 -->
@@ -362,35 +324,25 @@
       <div class="header">Shift 1 - Total Hours</div>
 
       <div class="infographic-circle">
-
-        <div class="circle-box completed">
-          <div class="circle-inner">
-            <div class="circle-week">Week 1</div>
-            <div class="circle-hours">56h</div>
-          </div>
+        <div class="circle-box">
+          <div class="circle-week">Week 1</div>
+          <div class="circle-hours">56h</div>
         </div>
 
         <div class="circle-box pending">
-          <div class="circle-inner">
-            <div class="circle-week">Week 2</div>
-            <div class="circle-hours">-</div>
-          </div>
+          <div class="circle-week">Week 2</div>
+          <div class="circle-hours">-</div>
         </div>
 
         <div class="circle-box pending">
-          <div class="circle-inner">
-            <div class="circle-week">Week 3</div>
-            <div class="circle-hours">-</div>
-          </div>
+          <div class="circle-week">Week 3</div>
+          <div class="circle-hours">-</div>
         </div>
 
         <div class="circle-box pending">
-          <div class="circle-inner">
-            <div class="circle-week">Week 4</div>
-            <div class="circle-hours">-</div>
-          </div>
+          <div class="circle-week">Week 4</div>
+          <div class="circle-hours">-</div>
         </div>
-
       </div>
     </div>
 
