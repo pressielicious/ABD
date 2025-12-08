@@ -17,38 +17,45 @@
     }
 
     .overlay {
-      background-color: rgba(255,255,255,0.9);
+      background-color: rgba(255,255,255,0.95);
       min-height: 100vh;
-      padding: 40px 20px;
+      padding: 30px 15px;
+      box-sizing: border-box;
     }
 
     h1 {
       font-family: 'Playfair Display', serif;
       text-align: center;
       color: #2E7D32;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
+      font-size: 2rem;
+    }
+
+    .table-container {
+      overflow-x: auto;
     }
 
     table {
       width: 100%;
-      max-width: 800px;
-      margin: 0 auto 40px;
       border-collapse: collapse;
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      min-width: 600px; /* ensures table scroll on small screens */
     }
 
     th, td {
-      padding: 15px;
+      padding: 12px 8px;
       text-align: center;
       border-bottom: 1px solid #ddd;
+      font-weight: 500;
+      font-size: 0.95rem;
     }
 
     th {
       background-color: #2E7D32;
       color: white;
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
 
     tr:hover {
@@ -56,7 +63,7 @@
     }
 
     button {
-      padding: 8px 16px;
+      padding: 6px 12px;
       background-color: #2E7D32;
       color: white;
       border: none;
@@ -64,6 +71,7 @@
       cursor: pointer;
       font-weight: 600;
       transition: background-color 0.3s;
+      font-size: 0.85rem;
     }
 
     button:hover {
@@ -73,7 +81,7 @@
     .team-members {
       display: none;
       background-color: rgba(46,125,50,0.05);
-      padding: 10px;
+      padding: 8px 6px;
       border-bottom: 1px solid #ddd;
     }
 
@@ -85,30 +93,132 @@
 
     .team-members ul li {
       margin-bottom: 4px;
+      font-size: 0.85rem;
     }
 
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      th, td {
+        padding: 10px 5px;
+        font-size: 0.85rem;
+      }
+      button {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+      }
+      .team-members ul li {
+        font-size: 0.8rem;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="overlay">
     <h1>Rider Schedule</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Team</th>
-          <th>8 Dec</th>
-          <th>9 Dec</th>
-          <th>10 Dec</th>
-          <th>11 Dec</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Team 1</td>
-          <td>BBCT</td>
-          <td>BBSS</td>
-          <td>ABMCT</td>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>8 Dec</th>
+            <th>9 Dec</th>
+            <th>10 Dec</th>
+            <th>11 Dec</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Team 1</td>
+            <td>BBCT</td>
+            <td>BBSS</td>
+            <td>ABMCT</td>
+            <td>BBPB</td>
+            <td><button onclick="toggle('team1')">View Members</button></td>
+          </tr>
+          <tr id="team1" class="team-members">
+            <td colspan="6">
+              <ul>
+                <li>Rider 1A</li>
+                <li>Rider 1B</li>
+                <li>Rider 1C</li>
+                <li>Rider 1D</li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Team 2</td>
+            <td>BBSS</td>
+            <td>ABMCT</td>
+            <td>BBPB</td>
+            <td>BBCT</td>
+            <td><button onclick="toggle('team2')">View Members</button></td>
+          </tr>
+          <tr id="team2" class="team-members">
+            <td colspan="6">
+              <ul>
+                <li>Rider 2A</li>
+                <li>Rider 2B</li>
+                <li>Rider 2C</li>
+                <li>Rider 2D</li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Team 3</td>
+            <td>ABMCT</td>
+            <td>BBPB</td>
+            <td>BBCT</td>
+            <td>BBSS</td>
+            <td><button onclick="toggle('team3')">View Members</button></td>
+          </tr>
+          <tr id="team3" class="team-members">
+            <td colspan="6">
+              <ul>
+                <li>Rider 3A</li>
+                <li>Rider 3B</li>
+                <li>Rider 3C</li>
+                <li>Rider 3D</li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Team 4</td>
+            <td>BBPB</td>
+            <td>BBCT</td>
+            <td>BBSS</td>
+            <td>ABMCT</td>
+            <td><button onclick="toggle('team4')">View Members</button></td>
+          </tr>
+          <tr id="team4" class="team-members">
+            <td colspan="6">
+              <ul>
+                <li>Rider 4A</li>
+                <li>Rider 4B</li>
+                <li>Rider 4C</li>
+                <li>Rider 4D</li>
+              </ul>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function toggle(id) {
+      const el = document.getElementById(id);
+      el.style.display = (el.style.display === 'table-row') ? 'none' : 'table-row';
+    }
+  </script>
+</body>
+</html>          <td>ABMCT</td>
           <td>BBPB</td>
           <td><button onclick="toggle('team1')">View Members</button></td>
         </tr>
