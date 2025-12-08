@@ -1,114 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rider Schedule</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600&display=swap" rel="stylesheet"/>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rider Schedule Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin:0; padding:0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: url('https://i.imgur.com/4cOzTo8.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    overflow-x: hidden;
+  }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: url('https://i.imgur.com/4cOzTo8.jpeg') no-repeat center center fixed;
-      background-size: cover;
-      color: #333;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 20px;
-    }
+  .container {
+    width: 100%;
+    max-width: 1000px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    animation: fadeIn 1s ease;
+  }
 
-    .container {
-      width: 100%;
-      max-width: 900px;
-      background-color: rgba(255,255,255,0.95);
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
+  h1 {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    font-size: 2.2rem;
+    color: #fff;
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+    margin-bottom: 40px;
+  }
 
-    h1 {
-      font-family: 'Poppins', sans-serif;
-      text-align: center;
-      font-size: 2rem;
-      color: #2E7D32;
-      margin-bottom: 30px;
-    }
+  @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
 
-    .team-card {
-      background: #fff;
-      border-radius: 12px;
-      margin-bottom: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      overflow: hidden;
-      transition: transform 0.3s;
-    }
+  .team-card {
+    background: rgba(255,255,255,0.9);
+    border-radius: 15px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transform: translateY(20px);
+    opacity: 0;
+    animation: cardFade 0.6s forwards;
+    animation-delay: 0.2s;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
 
-    .team-card:hover {
-      transform: translateY(-3px);
-    }
+  @keyframes cardFade { to { transform: translateY(0); opacity: 1; } }
 
-    .team-header {
-      padding: 15px 20px;
-      background-color: #2E7D32;
-      color: white;
-      font-weight: 600;
-      font-size: 1.1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-    }
+  .team-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
 
-    .team-header span {
-      font-weight: 400;
-      font-size: 0.9rem;
-    }
+  .team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    cursor: pointer;
+  }
 
-    .team-body {
-      display: none;
-      padding: 15px 20px;
-      animation: fadeIn 0.3s ease-in-out;
-      background-color: #f9f9f9;
-    }
+  .team-name { font-weight: 600; font-size: 1.2rem; color: #222; }
 
-    .team-body ul {
-      list-style: disc inside;
-    }
+  .schedule { display: flex; gap: 10px; flex-wrap: wrap; }
 
-    .team-body ul li {
-      margin-bottom: 6px;
-    }
+  .badge {
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
 
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
+  .badge:hover { transform: scale(1.1); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.5rem;
-      }
-      .team-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .team-header span {
-        margin-top: 5px;
-      }
-    }
-  </style>
+  .BBCT { background-color: #FF5722; }
+  .BBSS { background-color: #3F51B5; }
+  .ABMCT { background-color: #009688; }
+  .BBPB { background-color: #FFC107; }
+
+  .team-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+    padding: 0 20px;
+    background-color: rgba(46,125,50,0.05);
+  }
+
+  .team-body.open { padding: 15px 20px; }
+
+  .team-body ul { list-style: none; padding-left: 0; }
+  .team-body ul li {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    gap: 8px;
+  }
+
+  .team-body ul li::before {
+    content: "🏍️"; /* rider icon */
+  }
+
+  @media (max-width: 700px) { .schedule { flex-direction: column; } }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Rider Schedule</h1>
+<div class="container">
+  <h1>Rider Schedule Dashboard</h1>
 
+  <!-- Team 1 -->
+  <div class="team-card" style="animation-delay:0.1s;">
+    <div class="team-header" onclick="toggleCard(this)">
+      <div class="team-name">Team 1</div>
+      <div class="schedule">
+        <div class="badge BBCT">8 Dec: BBCT</div>
+        <div class="badge BBSS">9 Dec: BBSS</div>
+        <div class="badge ABMCT">10 Dec: ABMCT</div>
+        <div class="badge BBPB">11 Dec: BBPB</div>
+      </div>
+    </div>
+    <div class="team-body">
+      <ul>
+        <li>Rider 1A</li>
+        <li>Rider 1B</li>
+        <li>Rider 1C</li>
+        <li>Rider 1D</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Team 2 -->
+  <div class="team-card" style="animation-delay:0.3s;">
+    <div class="team-header" onclick="toggleCard(this)">
+      <div class="team-name">Team 2</div>
+      <div class="schedule">
+        <div class="badge BBSS">8 Dec: BBSS</div>
+        <div class="badge ABMCT">9 Dec: ABMCT</div>
+        <div class="badge BBPB">10 Dec: BBPB</div>
+        <div class="badge BBCT">11 Dec: BBCT</div>
+      </div>
+    </div>
+    <div class="team-body">
+      <ul>
+        <li>Rider 2A</li>
+        <li>Rider 2B</li>
+        <li>Rider 2C</li>
+        <li>Rider 2D</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Team 3 -->
+  <div class="team-card" style="animation-delay:0.5s;">
+    <div class="team-header" onclick="toggleCard(this)">
+      <div class="team-name">Team 3</div>
+      <div class="schedule">
+        <div class="badge ABMCT">8 Dec: ABMCT</div>
+        <div class="badge BBPB">9 Dec: BBPB</div>
+        <div class="badge BBCT">10 Dec: BBCT</div>
+        <div class="badge BBSS">11 Dec: BBSS</div>
+      </div>
+    </div>
+    <div class="team-body">
+      <ul>
+        <li>Rider 3A</li>
+        <li>Rider 3B</li>
+        <li>Rider 3C</li>
+        <li>Rider 3D</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Team 4 -->
+  <div class="team-card" style="animation-delay:0.7s;">
+    <div class="team-header" onclick="toggleCard(this)">
+      <div class="team-name">Team 4</div>
+      <div class="schedule">
+        <div class="badge BBPB">8 Dec: BBPB</div>
+        <div class="badge BBCT">9 Dec: BBCT</div>
+        <div class="badge BBSS">10 Dec: BBSS</div>
+        <div class="badge ABMCT">11 Dec: ABMCT</div>
+      </div>
+    </div>
+    <div class="team-body">
+      <ul>
+        <li>Rider 4A</li>
+        <li>Rider 4B</li>
+        <li>Rider 4C</li>
+        <li>Rider 4D</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleCard(header) {
+  const body = header.nextElementSibling;
+  if(body.classList.contains('open')){
+    body.style.maxHeight = null;
+    body.classList.remove('open');
+  } else {
+    body.style.maxHeight = body.scrollHeight + "px";
+    body.classList.add('open');
+  }
+}
+</script>
+</body>
+</html>
     <!-- Team 1 -->
     <div class="team-card">
       <div class="team-header" onclick="toggleCard(this)">
