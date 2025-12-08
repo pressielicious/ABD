@@ -47,34 +47,12 @@
       letter-spacing: .4px;
     }
 
-    .nav-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 30px;
-    }
-
-    .nav-buttons button {
-      padding: 8px 16px;
-      border-radius: 999px;
-      border: none;
-      background: #000;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.2s ease;
-    }
-
-    .nav-buttons button:hover {
-      background: #222;
-    }
-
     /* Rider Schedule */
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
+      margin-bottom: 50px;
     }
 
     @media (max-width: 640px) {
@@ -177,7 +155,11 @@
       .member { width: 100%; }
     }
 
-    /* Total Hours Page */
+    /* Total Hours Section */
+    .total-hours {
+      margin-top: 50px;
+    }
+
     .week-list {
       display: flex;
       flex-direction: column;
@@ -199,142 +181,120 @@
 
     .week-card:hover { transform: translateY(-2px); }
 
-    .hidden { display: none; }
-
   </style>
 </head>
 <body>
 
 <div class="app">
-  <div class="header" id="page-header">Shift 1 - Rider Schedule</div>
-
-  <div class="nav-buttons">
-    <button onclick="showPage('schedule')">Rider Schedule</button>
-    <button onclick="showPage('hours')">Total Hours</button>
-  </div>
+  <div class="header">Shift 1 - Rider Schedule</div>
 
   <!-- Rider Schedule -->
-  <div id="schedule">
-    <div class="grid">
-
-      <!-- TEAM 1 -->
-      <div class="card">
-        <div class="card-title">Team 1</div>
-        <div class="badges">
-          <div class="badge BBCT">8 Dec · BBCT</div>
-          <div class="badge BBSS">9 Dec · BBSS</div>
-          <div class="badge ABMCT">10 Dec · ABMCT</div>
-          <div class="badge BBPB">11 Dec · BBPB</div>
-        </div>
-        <button class="toggle-btn" onclick="toggle(this)">View Members</button>
-        <div class="members">
-          <div class="member">1 Adik Tonni</div>
-          <div class="member">2 Aira Sofia</div>
-          <div class="member">3 Alex Xandra</div>
-          <div class="member">4 Apin Vixon</div>
-          <div class="member">5 Aslan Noah</div>
-          <div class="member">6 Ayden Justin</div>
-          <div class="member">7 Baka Yalol</div>
-          <div class="member">8 Bayizz</div>
-          <div class="member">9 Din Irwan</div>
-          <div class="member">10 Dyo X</div>
-        </div>
+  <div class="grid">
+    <!-- TEAM 1 -->
+    <div class="card">
+      <div class="card-title">Team 1</div>
+      <div class="badges">
+        <div class="badge BBCT">8 Dec · BBCT</div>
+        <div class="badge BBSS">9 Dec · BBSS</div>
+        <div class="badge ABMCT">10 Dec · ABMCT</div>
+        <div class="badge BBPB">11 Dec · BBPB</div>
       </div>
-
-      <!-- TEAM 2 -->
-      <div class="card">
-        <div class="card-title">Team 2</div>
-        <div class="badges">
-          <div class="badge BBSS">8 Dec · BBSS</div>
-          <div class="badge ABMCT">9 Dec · ABMCT</div>
-          <div class="badge BBPB">10 Dec · BBPB</div>
-          <div class="badge BBCT">11 Dec · BBCT</div>
-        </div>
-        <button class="toggle-btn" onclick="toggle(this)">View Members</button>
-        <div class="members">
-          <div class="member">11 EL Brian</div>
-          <div class="member">12 EL Washere</div>
-          <div class="member">13 Fasya Leleh</div>
-          <div class="member">14 Jesse Merlin</div>
-          <div class="member">15 JJA Hup Seng</div>
-          <div class="member">16 Keyz Jahat</div>
-          <div class="member">17 Knox Russo</div>
-          <div class="member">18 </div>
-          <div class="member">19 Kyle Harris</div>
-          <div class="member">20 Leman Man</div>
-        </div>
+      <button class="toggle-btn" onclick="toggle(this)">View Members</button>
+      <div class="members">
+        <div class="member">1 Adik Tonni</div>
+        <div class="member">2 Aira Sofia</div>
+        <div class="member">3 Alex Xandra</div>
+        <div class="member">4 Apin Vixon</div>
+        <div class="member">5 Aslan Noah</div>
+        <div class="member">6 Ayden Justin</div>
+        <div class="member">7 Baka Yalol</div>
+        <div class="member">8 Bayizz</div>
+        <div class="member">9 Din Irwan</div>
+        <div class="member">10 Dyo X</div>
       </div>
+    </div>
 
-      <!-- TEAM 3 -->
-      <div class="card">
-        <div class="card-title">Team 3</div>
-        <div class="badges">
-          <div class="badge ABMCT">8 Dec · ABMCT</div>
-          <div class="badge BBPB">9 Dec · BBPB</div>
-          <div class="badge BBCT">10 Dec · BBCT</div>
-          <div class="badge BBSS">11 Dec · BBSS</div>
-        </div>
-        <button class="toggle-btn" onclick="toggle(this)">View Members</button>
-        <div class="members">
-          <div class="member">21 Leman Troyee</div>
-          <div class="member">22 Lilz Badz</div>
-          <div class="member">23 M L</div>
-          <div class="member">24 Madmin Khalid</div>
-          <div class="member">25 Mael SiRoco</div>
-          <div class="member">26 Matt Dinn</div>
-          <div class="member">27 Mat Mil</div>
-          <div class="member">28 Mat Soud</div>
-          <div class="member">29 Mujibur OKU</div>
-          <div class="member">30 No One</div>
-        </div>
+    <!-- TEAM 2 -->
+    <div class="card">
+      <div class="card-title">Team 2</div>
+      <div class="badges">
+        <div class="badge BBSS">8 Dec · BBSS</div>
+        <div class="badge ABMCT">9 Dec · ABMCT</div>
+        <div class="badge BBPB">10 Dec · BBPB</div>
+        <div class="badge BBCT">11 Dec · BBCT</div>
       </div>
-
-      <!-- TEAM 4 -->
-      <div class="card">
-        <div class="card-title">Team 4</div>
-        <div class="badges">
-          <div class="badge BBPB">8 Dec · BBPB</div>
-          <div class="badge BBCT">9 Dec · BBCT</div>
-          <div class="badge BBSS">10 Dec · BBSS</div>
-          <div class="badge ABMCT">11 Dec · ABMCT</div>
-        </div>
-        <button class="toggle-btn" onclick="toggle(this)">View Members</button>
-        <div class="members">
-          <div class="member">31 Noa Quan</div>
-          <div class="member">32 Omar Kay</div>
-          <div class="member">33 Pojie Jie</div>
-          <div class="member">34 Rizkyy Nakata</div>
-          <div class="member">35 Royy Rompong</div>
-          <div class="member">36 Samud Senrose</div>
-          <div class="member">37 Tai Man</div>
-          <div class="member">38 Zack Macarov</div>
-          <div class="member">39 Zai Chi</div>
-          <div class="member">40 </div>
-        </div>
+      <button class="toggle-btn" onclick="toggle(this)">View Members</button>
+      <div class="members">
+        <div class="member">11 EL Brian</div>
+        <div class="member">12 EL Washere</div>
+        <div class="member">13 Fasya Leleh</div>
+        <div class="member">14 Jesse Merlin</div>
+        <div class="member">15 JJA Hup Seng</div>
+        <div class="member">16 Keyz Jahat</div>
+        <div class="member">17 Knox Russo</div>
+        <div class="member">18 </div>
+        <div class="member">19 Kyle Harris</div>
+        <div class="member">20 Leman Man</div>
       </div>
+    </div>
 
+    <!-- TEAM 3 -->
+    <div class="card">
+      <div class="card-title">Team 3</div>
+      <div class="badges">
+        <div class="badge ABMCT">8 Dec · ABMCT</div>
+        <div class="badge BBPB">9 Dec · BBPB</div>
+        <div class="badge BBCT">10 Dec · BBCT</div>
+        <div class="badge BBSS">11 Dec · BBSS</div>
+      </div>
+      <button class="toggle-btn" onclick="toggle(this)">View Members</button>
+      <div class="members">
+        <div class="member">21 Leman Troyee</div>
+        <div class="member">22 Lilz Badz</div>
+        <div class="member">23 M L</div>
+        <div class="member">24 Madmin Khalid</div>
+        <div class="member">25 Mael SiRoco</div>
+        <div class="member">26 Matt Dinn</div>
+        <div class="member">27 Mat Mil</div>
+        <div class="member">28 Mat Soud</div>
+        <div class="member">29 Mujibur OKU</div>
+        <div class="member">30 No One</div>
+      </div>
+    </div>
+
+    <!-- TEAM 4 -->
+    <div class="card">
+      <div class="card-title">Team 4</div>
+      <div class="badges">
+        <div class="badge BBPB">8 Dec · BBPB</div>
+        <div class="badge BBCT">9 Dec · BBCT</div>
+        <div class="badge BBSS">10 Dec · BBSS</div>
+        <div class="badge ABMCT">11 Dec · ABMCT</div>
+      </div>
+      <button class="toggle-btn" onclick="toggle(this)">View Members</button>
+      <div class="members">
+        <div class="member">31 Noa Quan</div>
+        <div class="member">32 Omar Kay</div>
+        <div class="member">33 Pojie Jie</div>
+        <div class="member">34 Rizkyy Nakata</div>
+        <div class="member">35 Royy Rompong</div>
+        <div class="member">36 Samud Senrose</div>
+        <div class="member">37 Tai Man</div>
+        <div class="member">38 Zack Macarov</div>
+        <div class="member">39 Zai Chi</div>
+        <div class="member">40 </div>
+      </div>
     </div>
   </div>
 
-  <!-- Total Hours -->
-  <div id="hours" class="hidden">
+  <!-- Total Hours Section -->
+  <div class="total-hours">
+    <div class="header">Shift 1 - Total Hours</div>
     <div class="week-list">
-      <div class="week-card">
-        <span>Week 1</span>
-        <span>56 hours</span>
-      </div>
-      <div class="week-card">
-        <span>Week 2</span>
-        <span>-</span>
-      </div>
-      <div class="week-card">
-        <span>Week 3</span>
-        <span>-</span>
-      </div>
-      <div class="week-card">
-        <span>Week 4</span>
-        <span>-</span>
-      </div>
+      <div class="week-card"><span>Week 1</span><span>56 hours</span></div>
+      <div class="week-card"><span>Week 2</span><span>-</span></div>
+      <div class="week-card"><span>Week 3</span><span>-</span></div>
+      <div class="week-card"><span>Week 4</span><span>-</span></div>
     </div>
   </div>
 
@@ -344,22 +304,6 @@
   function toggle(btn) {
     const box = btn.nextElementSibling;
     box.classList.toggle('show');
-  }
-
-  function showPage(page) {
-    const schedule = document.getElementById('schedule');
-    const hours = document.getElementById('hours');
-    const header = document.getElementById('page-header');
-
-    if(page === 'schedule') {
-      schedule.classList.remove('hidden');
-      hours.classList.add('hidden');
-      header.textContent = "Shift 1 - Rider Schedule";
-    } else {
-      schedule.classList.add('hidden');
-      hours.classList.remove('hidden');
-      header.textContent = "Shift 1 - Total Hours";
-    }
   }
 </script>
 
