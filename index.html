@@ -1,91 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rider Schedule</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
       margin: 0;
-      background-image: url('https://i.imgur.com/S2LuVA1.jpeg');
+      padding: 0;
+      background: url('https://i.imgur.com/4cOzTo8.jpeg') no-repeat center center fixed;
       background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-    }
-    table {
-      width: 60%;
-      border-collapse: collapse;
-      margin: auto;
-      background-color: rgba(255, 255, 255, 0.85);
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 10px;
-      text-align: center;
-    }
-    th {
-      background-color: rgba(76, 175, 80, 0.9);
-      color: white;
-    }
-    tr:nth-child(even) {
-      background-color: rgba(242, 242, 242, 0.8);
-    }
-    caption {
-      font-size: 1.5em;
-      margin-bottom: 10px;
-      font-weight: bold;
+      font-family: 'Open Sans', sans-serif;
       color: #333;
     }
+
+    .overlay {
+      background-color: rgba(255,255,255,0.9);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      color: #2E7D32;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 40px;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #2E7D32;
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    tr:hover {
+      background-color: rgba(46,125,50,0.1);
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #2E7D32;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #1B5E20;
+    }
+
+    .team-members {
+      display: none;
+      background-color: rgba(46,125,50,0.05);
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .team-members ul {
+      padding-left: 20px;
+      margin: 5px 0;
+      text-align: left;
+    }
+
+    .team-members ul li {
+      margin-bottom: 4px;
+    }
+
   </style>
 </head>
 <body>
-  <table>
-    <caption>Rider Schedule</caption>
-    <thead>
-      <tr>
-        <th>Team</th>
-        <th>8 Dec</th>
-        <th>9 Dec</th>
-        <th>10 Dec</th>
-        <th>11 Dec</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Team 1</td>
-        <td>BBCT</td>
-        <td>BBSS</td>
-        <td>ABMCT</td>
-        <td>BBPB</td>
-      </tr>
-      <tr>
-        <td>Team 2</td>
-        <td>BBSS</td>
-        <td>ABMCT</td>
-        <td>BBPB</td>
-        <td>BBCT</td>
-      </tr>
-      <tr>
-        <td>Team 3</td>
-        <td>ABMCT</td>
-        <td>BBPB</td>
-        <td>BBCT</td>
-        <td>BBSS</td>
-      </tr>
-      <tr>
-        <td>Team 4</td>
-        <td>BBPB</td>
-        <td>BBCT</td>
-        <td>BBSS</td>
-        <td>ABMCT</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="overlay">
+    <h1>Rider Schedule</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th>8 Dec</th>
+          <th>9 Dec</th>
+          <th>10 Dec</th>
+          <th>11 Dec</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Team 1</td>
+          <td>BBCT</td>
+          <td>BBSS</td>
+          <td>ABMCT</td>
+          <td>BBPB</td>
+          <td><button onclick="toggle('team1')">View Members</button></td>
+        </tr>
+        <tr id="team1" class="team-members">
+          <td colspan="6">
+            <ul>
+              <li>Rider 1A</li>
+              <li>Rider 1B</li>
+              <li>Rider 1C</li>
+              <li>Rider 1D</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Team 2</td>
+          <td>BBSS</td>
+          <td>ABMCT</td>
+          <td>BBPB</td>
+          <td>BBCT</td>
+          <td><button onclick="toggle('team2')">View Members</button></td>
+        </tr>
+        <tr id="team2" class="team-members">
+          <td colspan="6">
+            <ul>
+              <li>Rider 2A</li>
+              <li>Rider 2B</li>
+              <li>Rider 2C</li>
+              <li>Rider 2D</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Team 3</td>
+          <td>ABMCT</td>
+          <td>BBPB</td>
+          <td>BBCT</td>
+          <td>BBSS</td>
+          <td><button onclick="toggle('team3')">View Members</button></td>
+        </tr>
+        <tr id="team3" class="team-members">
+          <td colspan="6">
+            <ul>
+              <li>Rider 3A</li>
+              <li>Rider 3B</li>
+              <li>Rider 3C</li>
+              <li>Rider 3D</li>
+            </ul>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Team 4</td>
+          <td>BBPB</td>
+          <td>BBCT</td>
+          <td>BBSS</td>
+          <td>ABMCT</td>
+          <td><button onclick="toggle('team4')">View Members</button></td>
+        </tr>
+        <tr id="team4" class="team-members">
+          <td colspan="6">
+            <ul>
+              <li>Rider 4A</li>
+              <li>Rider 4B</li>
+              <li>Rider 4C</li>
+              <li>Rider 4D</li>
+            </ul>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function toggle(id) {
+      const el = document.getElementById(id);
+      el.style.display = (el.style.display === 'table-row') ? 'none' : 'table-row';
+    }
+  </script>
 </body>
 </html>
