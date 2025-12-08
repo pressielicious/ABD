@@ -7,13 +7,14 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Bebas Neue', system-ui, sans-serif;
+      font-family: 'Inter', system-ui, sans-serif; /* default font */
     }
 
     body {
@@ -39,7 +40,9 @@
       backdrop-filter: blur(8px);
     }
 
+    /* Header uses Bebas Neue */
     .header {
+      font-family: 'Bebas Neue', cursive;
       text-align: center;
       font-weight: 400;
       font-size: 36px;
@@ -75,7 +78,9 @@
       transform: translateY(-3px);
     }
 
+    /* Team titles use Bebas Neue */
     .card-title {
+      font-family: 'Bebas Neue', cursive;
       font-size: 20px;
       font-weight: 400;
       letter-spacing: .3px;
@@ -92,11 +97,12 @@
       width: 100%;
       max-width: 200px;
       font-size: 12px;
-      font-weight: 400;
+      font-weight: 600;
       padding: 8px 12px;
       border-radius: 999px;
       color: #fff;
       text-align: center;
+      font-family: 'Inter', sans-serif; /* keep badges in clean font */
     }
 
     .BBCT { background: #ff5722; }
@@ -111,10 +117,11 @@
       border: none;
       background: #000;
       color: #fff;
-      font-weight: 400;
+      font-weight: 600;
       font-size: 13px;
       cursor: pointer;
       transition: background 0.2s ease;
+      font-family: 'Inter', sans-serif; /* clean font */
     }
 
     .toggle-btn:hover {
@@ -137,6 +144,7 @@
       opacity: 0;
       overflow: hidden;
       transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+      font-family: 'Inter', sans-serif; /* clean font */
     }
 
     /* Show members */
