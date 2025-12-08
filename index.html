@@ -2,113 +2,220 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rider Schedule Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rider Schedule</title>
+
+<!-- Bebas Neue Font -->
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * {
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    font-family: Arial, sans-serif;
+  }
+
   body {
-    font-family: 'Inter', sans-serif;
-    background: url('https://i.imgur.com/4cOzTo8.jpeg') no-repeat center center fixed;
-    background-size: cover;
+    background: #f5f5f5;
     min-height: 100vh;
-    color: #222;
+    padding: 20px;
     display: flex;
     justify-content: center;
-    padding: 20px;
   }
 
-  .dashboard {
+  .app {
     width: 100%;
-    max-width: 1200px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    max-width: 1000px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.06);
   }
 
-  h1 {
-    width: 100%;
-    grid-column: 1 / -1;
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    font-size: 2.2rem;
-    color: #fff;
-    text-shadow: 1px 1px 8px rgba(0,0,0,0.6);
+  .header {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 42px;
+    letter-spacing: 3px;
     margin-bottom: 30px;
+    text-align: center;
   }
 
-  .team-card {
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(12px);
-    border-radius: 20px;
-    padding: 20px;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .card {
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-
-  .team-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    gap: 12px;
+    background: #fff;
   }
 
   .team-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 15px;
-    color: #fff;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    font-family: 'Bebas Neue', cursive;
+    font-size: 22px;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 6px;
   }
 
-  .schedule {
+  .badges {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 6px;
   }
 
   .badge {
-    padding: 6px 12px;
-    border-radius: 12px;
-    font-size: 0.85rem;
+    font-size: 12px;
     font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #000;
     color: #fff;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: default;
+    letter-spacing: 0.3px;
   }
 
-  .badge:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  .toggle-btn {
+    border: none;
+    background: transparent;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 16px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    padding: 8px 0;
+    border-top: 1px solid #eee;
+    color: #000;
   }
-
-  .BBCT { background-color: #FF5722; }
-  .BBSS { background-color: #3F51B5; }
-  .ABMCT { background-color: #009688; }
-  .BBPB { background-color: #FFC107; color: #222; }
 
   .members {
-    flex: 1;
-    background: rgba(255,255,255,0.25);
-    backdrop-filter: blur(8px);
-    border-radius: 15px;
-    padding: 10px 15px;
-    transition: background 0.3s;
-    overflow: hidden;
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 6px;
   }
 
-  .members:hover {
-    background: rgba(255,255,255,0.35);
+  .member {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  .member-list {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
+  .member::before {
+    content: "—";
+    color: #aaa;
+  }
+
+  @media (max-width: 500px) {
+    .header {
+      font-size: 32px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="header">RIDER SCHEDULE</div>
+
+  <div class="grid">
+
+    <!-- TEAM 1 -->
+    <div class="card">
+      <div class="team-title">TEAM 1</div>
+      <div class="badges">
+        <div class="badge">8 Dec — BBCT</div>
+        <div class="badge">9 Dec — BBSS</div>
+        <div class="badge">10 Dec — ABMCT</div>
+        <div class="badge">11 Dec — BBPB</div>
+      </div>
+      <button class="toggle-btn" onclick="toggle(this)">VIEW MEMBERS</button>
+      <div class="members">
+        <div class="member">Rider A</div>
+        <div class="member">Rider B</div>
+        <div class="member">Rider C</div>
+        <div class="member">Rider D</div>
+      </div>
+    </div>
+
+    <!-- TEAM 2 -->
+    <div class="card">
+      <div class="team-title">TEAM 2</div>
+      <div class="badges">
+        <div class="badge">8 Dec — BBSS</div>
+        <div class="badge">9 Dec — ABMCT</div>
+        <div class="badge">10 Dec — BBPB</div>
+        <div class="badge">11 Dec — BBCT</div>
+      </div>
+      <button class="toggle-btn" onclick="toggle(this)">VIEW MEMBERS</button>
+      <div class="members">
+        <div class="member">Rider E</div>
+        <div class="member">Rider F</div>
+        <div class="member">Rider G</div>
+        <div class="member">Rider H</div>
+      </div>
+    </div>
+
+    <!-- TEAM 3 -->
+    <div class="card">
+      <div class="team-title">TEAM 3</div>
+      <div class="badges">
+        <div class="badge">8 Dec — ABMCT</div>
+        <div class="badge">9 Dec — BBPB</div>
+        <div class="badge">10 Dec — BBCT</div>
+        <div class="badge">11 Dec — BBSS</div>
+      </div>
+      <button class="toggle-btn" onclick="toggle(this)">VIEW MEMBERS</button>
+      <div class="members">
+        <div class="member">Rider I</div>
+        <div class="member">Rider J</div>
+        <div class="member">Rider K</div>
+        <div class="member">Rider L</div>
+      </div>
+    </div>
+
+    <!-- TEAM 4 -->
+    <div class="card">
+      <div class="team-title">TEAM 4</div>
+      <div class="badges">
+        <div class="badge">8 Dec — BBPB</div>
+        <div class="badge">9 Dec — BBCT</div>
+        <div class="badge">10 Dec — BBSS</div>
+        <div class="badge">11 Dec — ABMCT</div>
+      </div>
+      <button class="toggle-btn" onclick="toggle(this)">VIEW MEMBERS</button>
+      <div class="members">
+        <div class="member">Rider M</div>
+        <div class="member">Rider N</div>
+        <div class="member">Rider O</div>
+        <div class="member">Rider P</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function toggle(btn) {
+  const box = btn.nextElementSibling;
+  const isOpen = box.style.display === "flex";
+
+  document.querySelectorAll('.members').forEach(m => m.style.display = "none");
+
+  if (!isOpen) {
+    box.style.display = "flex";
+  }
+}
+</script>
+
+</body>
+</html>    margin: 0;
   }
 
   .member-list li {
