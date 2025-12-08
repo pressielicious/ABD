@@ -27,7 +27,7 @@
                   url("https://i.imgur.com/nzJb0Qw.jpeg") no-repeat center center fixed;
       background-size: cover;
       min-height: 100vh;
-      padding: 60px 24px; /* MORE space */
+      padding: 40px 20px;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -37,19 +37,19 @@
 
     .app {
       width: 100%;
-      max-width: 1400px; /* MUCH BIGGER PAGE */
+      max-width: 1850px; /* EVEN BIGGER PAGE */
       background: rgba(15, 15, 15, 0.88);
-      border-radius: 30px;
-      padding: 55px;
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.55);
-      backdrop-filter: blur(12px);
+      border-radius: 26px;
+      padding: 40px;
+      box-shadow: 0 20px 70px rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(10px);
     }
 
     .header {
       font-family: "Bebas Neue", cursive;
       text-align: center;
-      font-size: 62px; /* Bigger Title */
-      margin-bottom: 40px;
+      font-size: 52px;
+      margin-bottom: 25px;
       letter-spacing: 1px;
     }
 
@@ -57,11 +57,11 @@
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 40px; /* BIGGER GAP */
-      margin-bottom: 80px;
+      gap: 32px;
+      margin-bottom: 60px;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 720px) {
       .grid {
         grid-template-columns: 1fr;
       }
@@ -70,38 +70,38 @@
     /* Card */
     .card {
       background: rgba(255, 255, 255, 0.07);
-      border-radius: 26px;
-      padding: 38px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 20px;
       text-align: center;
       transition: transform 0.22s ease;
     }
 
     .card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-4px);
     }
 
     .card-title {
       font-family: "Bebas Neue", cursive;
-      font-size: 36px; /* BIGGER CARD TITLE */
+      font-size: 30px;
     }
 
     .badges {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
     }
 
     .badge {
       width: 100%;
-      max-width: 350px; /* BIGGER BADGES */
-      font-size: 18px;
+      max-width: 260px;
+      font-size: 16px;
       font-weight: 700;
-      padding: 14px 18px;
+      padding: 12px 16px;
       border-radius: 999px;
       text-align: center;
     }
@@ -113,13 +113,13 @@
 
     .toggle-btn {
       margin-top: 6px;
-      padding: 18px;
+      padding: 12px;
       border-radius: 999px;
       border: none;
       background: #000;
       color: #fff;
       font-weight: 700;
-      font-size: 18px;
+      font-size: 15px;
       cursor: pointer;
       transition: background 0.2s ease;
     }
@@ -129,84 +129,124 @@
     }
 
     .members {
-      margin-top: 18px;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 20px;
-      padding: 18px;
+      margin-top: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 12px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      gap: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
 
       max-height: 0;
       opacity: 0;
       overflow: hidden;
-      transition: max-height 0.45s ease, opacity 0.45s ease;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
     }
 
     .members.show {
-      max-height: 2000px;
+      max-height: 1200px;
       opacity: 1;
     }
 
     .member {
-      width: 48%;
-      font-size: 18px; /* BIGGER MEMBER TEXT */
+      width: 46%;
+      font-size: 16px;
       display: flex;
       justify-content: flex-start;
+      margin-bottom: 6px;
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 480px) {
       .member { width: 100%; }
     }
 
-    /* INFOGRAPHIC CIRCLES */
+    /* --- UPGRADED INFOGRAPHICS --- */
     .total-hours {
-      margin-top: 90px;
+      margin-top: 70px;
     }
 
     .infographic-circle {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 45px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 35px;
       margin-top: 35px;
       justify-items: center;
     }
 
+    /* Outer animated gradient ring */
     .circle-box {
-      width: 220px;   /* BIGGER CIRCLE */
-      height: 220px;  /* BIGGER CIRCLE */
-      background: rgba(255, 255, 255, 0.12);
+      width: 190px;
+      height: 190px;
+      position: relative;
       border-radius: 50%;
-      border: 4px solid rgba(255, 255, 255, 0.25);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .circle-box::before {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      background: conic-gradient(
+        #00ffb7,
+        #00aaff,
+        #c600ff,
+        #ff008c,
+        #ff5f00,
+        #ffe600,
+        #00ffb7
+      );
+      animation: spin 3.5s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Inner content circle */
+    .circle-inner {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(6px);
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.25);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      transition: transform 0.28s ease, box-shadow 0.28s ease;
     }
 
-    .circle-box:hover {
-      transform: scale(1.10);
-      box-shadow: 0 0 22px rgba(255, 255, 255, 0.32);
-    }
-
+    /* Text styling */
     .circle-week {
       font-family: "Bebas Neue", cursive;
-      font-size: 38px; /* Bigger Week Text */
+      font-size: 28px;
       letter-spacing: 1px;
-      margin-bottom: 8px;
     }
 
     .circle-hours {
-      font-size: 40px; /* Bigger Hours */
+      margin-top: 3px;
+      font-size: 36px;
       font-weight: 700;
     }
 
-    .pending {
+    /* Completed = green glow */
+    .completed .circle-inner {
+      box-shadow: 0 0 25px rgba(0, 255, 140, 0.65);
+    }
+
+    /* Pending = yellow dim */
+    .pending .circle-inner {
       opacity: 0.45;
+      box-shadow: 0 0 16px rgba(255, 218, 0, 0.25);
     }
   </style>
 </head>
@@ -216,15 +256,152 @@
 
     <div class="header">Shift 1 - Rider Schedule</div>
 
-    <!-- SAME CONTENT AS BEFORE -->
-    <!-- (Your teams + members remain unchanged) -->
+    <!-- Rider Schedule -->
+    <div class="grid">
 
-    <script>
-      function toggle(btn) {
-        const box = btn.nextElementSibling;
-        box.classList.toggle('show');
-      }
-    </script>
+      <!-- TEAM 1 -->
+      <div class="card">
+        <div class="card-title">Team 1</div>
+        <div class="badges">
+          <div class="badge BBCT">8 Dec · BBCT</div>
+          <div class="badge BBSS">9 Dec · BBSS</div>
+          <div class="badge ABMCT">10 Dec · ABMCT</div>
+          <div class="badge BBPB">11 Dec · BBPB</div>
+        </div>
+        <button class="toggle-btn" onclick="toggle(this)">View Members</button>
+        <div class="members">
+          <div class="member">1 Adik Tonni</div>
+          <div class="member">2 Aira Sofia</div>
+          <div class="member">3 Alex Xandra</div>
+          <div class="member">4 Apin Vixon</div>
+          <div class="member">5 Aslan Noah</div>
+          <div class="member">6 Ayden Justin</div>
+          <div class="member">7 Baka Yalol</div>
+          <div class="member">8 Bayizz</div>
+          <div class="member">9 Din Irwan</div>
+          <div class="member">10 Dyo X</div>
+        </div>
+      </div>
+
+      <!-- TEAM 2 -->
+      <div class="card">
+        <div class="card-title">Team 2</div>
+        <div class="badges">
+          <div class="badge BBSS">8 Dec · BBSS</div>
+          <div class="badge ABMCT">9 Dec · ABMCT</div>
+          <div class="badge BBPB">10 Dec · BBPB</div>
+          <div class="badge BBCT">11 Dec · BBCT</div>
+        </div>
+        <button class="toggle-btn" onclick="toggle(this)">View Members</button>
+        <div class="members">
+          <div class="member">11 EL Brian</div>
+          <div class="member">12 EL Washere</div>
+          <div class="member">13 Fasya Leleh</div>
+          <div class="member">14 Jesse Merlin</div>
+          <div class="member">15 JJA Hup Seng</div>
+          <div class="member">16 Keyz Jahat</div>
+          <div class="member">17 Knox Russo</div>
+          <div class="member">18</div>
+          <div class="member">19 Kyle Harris</div>
+          <div class="member">20 Leman Man</div>
+        </div>
+      </div>
+
+      <!-- TEAM 3 -->
+      <div class="card">
+        <div class="card-title">Team 3</div>
+        <div class="badges">
+          <div class="badge ABMCT">8 Dec · ABMCT</div>
+          <div class="badge BBPB">9 Dec · BBPB</div>
+          <div class="badge BBCT">10 Dec · BBCT</div>
+          <div class="badge BBSS">11 Dec · BBSS</div>
+        </div>
+        <button class="toggle-btn" onclick="toggle(this)">View Members</button>
+        <div class="members">
+          <div class="member">21 Leman Troyee</div>
+          <div class="member">22 Lilz Badz</div>
+          <div class="member">23 M L</div>
+          <div class="member">24 Madmin Khalid</div>
+          <div class="member">25 Mael SiRoco</div>
+          <div class="member">26 Matt Dinn</div>
+          <div class="member">27 Mat Mil</div>
+          <div class="member">28 Mat Soud</div>
+          <div class="member">29 Mujibur OKU</div>
+          <div class="member">30 No One</div>
+        </div>
+      </div>
+
+      <!-- TEAM 4 -->
+      <div class="card">
+        <div class="card-title">Team 4</div>
+        <div class="badges">
+          <div class="badge BBPB">8 Dec · BBPB</div>
+          <div class="badge BBCT">9 Dec · BBCT</div>
+          <div class="badge BBSS">10 Dec · BBSS</div>
+          <div class="badge ABMCT">11 Dec · ABMCT</div>
+        </div>
+        <button class="toggle-btn" onclick="toggle(this)">View Members</button>
+        <div class="members">
+          <div class="member">31 Noa Quan</div>
+          <div class="member">32 Omar Kay</div>
+          <div class="member">33 Pojie Jie</div>
+          <div class="member">34 Rizkyy Nakata</div>
+          <div class="member">35 Royy Rompong</div>
+          <div class="member">36 Samud Senrose</div>
+          <div class="member">37 Tai Man</div>
+          <div class="member">38 Zack Macarov</div>
+          <div class="member">39 Zai Chi</div>
+          <div class="member">40</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Total Hours Circle Infographic -->
+    <div class="total-hours">
+      <div class="header">Shift 1 - Total Hours</div>
+
+      <div class="infographic-circle">
+
+        <div class="circle-box completed">
+          <div class="circle-inner">
+            <div class="circle-week">Week 1</div>
+            <div class="circle-hours">56h</div>
+          </div>
+        </div>
+
+        <div class="circle-box pending">
+          <div class="circle-inner">
+            <div class="circle-week">Week 2</div>
+            <div class="circle-hours">-</div>
+          </div>
+        </div>
+
+        <div class="circle-box pending">
+          <div class="circle-inner">
+            <div class="circle-week">Week 3</div>
+            <div class="circle-hours">-</div>
+          </div>
+        </div>
+
+        <div class="circle-box pending">
+          <div class="circle-inner">
+            <div class="circle-week">Week 4</div>
+            <div class="circle-hours">-</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+<script>
+  function toggle(btn) {
+    const box = btn.nextElementSibling;
+    box.classList.toggle('show');
+  }
+</script>
 
 </body>
 </html>
