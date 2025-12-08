@@ -5,48 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Duty Roster</title>
 <style>
-  body { font-family: Arial, sans-serif; padding: 20px; }
-  select, button { margin: 5px 0; padding: 5px; }
-  table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+  body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+  h2 { text-align: center; }
+  .company { margin-bottom: 30px; }
+  .company h3 { background: #007BFF; color: white; padding: 10px; border-radius: 5px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
   th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
-  .team-name { cursor: pointer; color: blue; text-decoration: underline; }
-  .staff-list { display: none; margin-top: 5px; text-align: left; }
+  .team-name { cursor: pointer; color: #007BFF; text-decoration: underline; }
+  .staff-list { display: none; margin-top: 5px; text-align: left; background: #e9ecef; padding: 5px; border-radius: 3px; }
 </style>
 </head>
 <body>
 
-<h2>Duty Roster Viewer</h2>
+<h2>Duty Roster - 4 Day Schedule</h2>
 
-<label>Company:</label>
-<select id="companySelect">
-  <option value="">--Select Company--</option>
-  <option value="BBCT">BBCT</option>
-  <option value="BBSS">BBSS</option>
-  <option value="ABMCT">ABMCT</option>
-  <option value="ABMSS">ABMSS</option>
-  <option value="BBPB">BBPB</option>
-</select>
-
-<br>
-
-<label>Team:</label>
-<select id="teamSelect">
-  <option value="">--Select Team--</option>
-</select>
-
-<br>
-
-<label>Start Date:</label>
-<input type="date" id="startDate">
-
-<br>
-<button onclick="showSchedule()">Show Schedule</button>
-
-<div id="schedule"></div>
+<div id="roster"></div>
 
 <script>
-// Sample team data
-const teams = {
+// Predefined company -> team -> staff
+const roster = {
   BBCT: { Team1: ["Alice","Bob","Charlie"], Team2: ["David","Eve","Frank"] },
   BBSS: { Team1: ["Grace","Heidi","Ivan"], Team2: ["Judy","Ken","Leo"] },
   ABMCT: { Team1: ["Mia","Nina","Oscar"], Team2: ["Paul","Quinn","Rita"] },
@@ -54,61 +31,74 @@ const teams = {
   BBPB: { Team1: ["Yara","Zane","Alan"], Team2: ["Betty","Carl","Diana"] },
 };
 
-// Populate team dropdown based on selected company
-document.getElementById("companySelect").addEventListener("change", function() {
-  const company = this.value;
-  const teamSelect = document.getElementById("teamSelect");
-  teamSelect.innerHTML = '<option value="">--Select Team--</option>';
-  if(company && teams[company]) {
-    Object.keys(teams[company]).forEach(team => {
-      const option = document.createElement("option");
-      option.value = team;
-      option.textContent = team;
-      teamSelect.appendChild(option);
-    });
+// Get today + next 3 days
+function getNext4Days() {
+  const dates = [];
+  const today = new Date();
+  for(let i=0; i<4; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    dates.push(d.toDateString());
   }
-});
+  return dates;
+}
 
-// Show schedule
-function showSchedule() {
-  const company = document.getElementById("companySelect").value;
-  const team = document.getElementById("teamSelect").value;
-  const startDate = document.getElementById("startDate").value;
+// Build roster table
+function buildRoster() {
+  const container = document.getElementById("roster");
+  const dates = getNext4Days();
   
-  if(!company || !team || !startDate) {
-    alert("Please select company, team, and start date!");
-    return;
-  }
-  
-  const scheduleDiv = document.getElementById("schedule");
-  scheduleDiv.innerHTML = "";
-  
-  const table = document.createElement("table");
-  const headerRow = document.createElement("tr");
-  
-  for(let i=0; i<4; i++) {
-    const date = new Date(startDate);
-    date.setDate(date.getDate() + i);
-    const th = document.createElement("th");
-    th.textContent = date.toDateString();
-    headerRow.appendChild(th);
-  }
-  
-  table.appendChild(headerRow);
-  
-  const teamRow = document.createElement("tr");
-  for(let i=0; i<4; i++) {
-    const td = document.createElement("td");
-    const teamName = document.createElement("div");
-    teamName.textContent = team;
-    teamName.className = "team-name";
+  Object.keys(roster).forEach(company => {
+    const div = document.createElement("div");
+    div.className = "company";
     
-    const staffList = document.createElement("div");
-    staffList.className = "staff-list";
-    staffList.innerHTML = teams[company][team].join("<br>");
+    const h3 = document.createElement("h3");
+    h3.textContent = company;
+    div.appendChild(h3);
     
-    teamName.addEventListener("click", () => {
-      staffList.style.display = staffList.style.display === "none" ? "block" : "none";
+    const table = document.createElement("table");
+    const headerRow = document.createElement("tr");
+    dates.forEach(date => {
+      const th = document.createElement("th");
+      th.textContent = date;
+      headerRow.appendChild(th);
+    });
+    table.appendChild(headerRow);
+    
+    // For each team in company
+    Object.keys(roster[company]).forEach(team => {
+      const row = document.createElement("tr");
+      dates.forEach(_ => {
+        const td = document.createElement("td");
+        const teamDiv = document.createElement("div");
+        teamDiv.textContent = team;
+        teamDiv.className = "team-name";
+        
+        const staffDiv = document.createElement("div");
+        staffDiv.className = "staff-list";
+        staffDiv.innerHTML = roster[company][team].join("<br>");
+        
+        teamDiv.addEventListener("click", () => {
+          staffDiv.style.display = staffDiv.style.display === "none" ? "block" : "none";
+        });
+        
+        td.appendChild(teamDiv);
+        td.appendChild(staffDiv);
+        row.appendChild(td);
+      });
+      table.appendChild(row);
+    });
+    
+    div.appendChild(table);
+    container.appendChild(div);
+  });
+}
+
+buildRoster();
+</script>
+
+</body>
+</html>      staffList.style.display = staffList.style.display === "none" ? "block" : "none";
     });
     
     td.appendChild(teamName);
