@@ -121,17 +121,29 @@
       background: #222;
     }
 
+    /* Members container with smooth animation */
     .members {
       margin-top: 10px;
       background: rgba(255,255,255,0.08);
       border-radius: 14px;
       padding: 12px;
-      display: none;
-      gap: 8px;
-      border: 1px solid rgba(255,255,255,0.1);
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+
+      max-height: 0;       /* hidden by default */
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+    }
+
+    /* Show members */
+    .members.show {
+      max-height: 1000px; /* large enough to fit content */
+      opacity: 1;
+      padding: 12px;
     }
 
     .member {
@@ -263,13 +275,7 @@
 <script>
 function toggle(btn) {
   const box = btn.nextElementSibling;
-  const isOpen = box.style.display === "flex";
-
-  document.querySelectorAll('.members').forEach(m => m.style.display = "none");
-
-  if (!isOpen) {
-    box.style.display = "flex";
-  }
+  box.classList.toggle('show'); // toggle the animation
 }
 </script>
 
