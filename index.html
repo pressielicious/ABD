@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rider Schedule</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shift 1 - Rider Schedule & Total Hours</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -14,13 +14,11 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', system-ui, sans-serif; /* default font */
+      font-family: 'Inter', system-ui, sans-serif;
     }
 
     body {
-      background: 
-        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-        url('https://i.imgur.com/nzJb0Qw.jpeg') no-repeat center center fixed;
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://i.imgur.com/nzJb0Qw.jpeg') no-repeat center center fixed;
       background-size: cover;
       min-height: 100vh;
       padding: 30px 16px;
@@ -40,16 +38,39 @@
       backdrop-filter: blur(8px);
     }
 
-    /* Header uses Bebas Neue */
     .header {
       font-family: 'Bebas Neue', cursive;
       text-align: center;
       font-weight: 400;
       font-size: 36px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       letter-spacing: .4px;
     }
 
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .nav-buttons button {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: none;
+      background: #000;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+
+    .nav-buttons button:hover {
+      background: #222;
+    }
+
+    /* Rider Schedule */
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -74,11 +95,8 @@
       transition: transform 0.2s ease;
     }
 
-    .card:hover {
-      transform: translateY(-3px);
-    }
+    .card:hover { transform: translateY(-3px); }
 
-    /* Team titles use Bebas Neue */
     .card-title {
       font-family: 'Bebas Neue', cursive;
       font-size: 20px;
@@ -100,14 +118,12 @@
       font-weight: 600;
       padding: 8px 12px;
       border-radius: 999px;
-      color: #fff;
       text-align: center;
-      font-family: 'Inter', sans-serif; /* keep badges in clean font */
     }
 
-    .BBCT { background: #ff5722; }
-    .BBSS { background: #3f51b5; }
-    .ABMCT { background: #009688; }
+    .BBCT { background: #ff5722; color: #fff; }
+    .BBSS { background: #3f51b5; color: #fff; }
+    .ABMCT { background: #009688; color: #fff; }
     .BBPB { background: #e0e0e0; color: #000; }
 
     .toggle-btn {
@@ -121,14 +137,10 @@
       font-size: 13px;
       cursor: pointer;
       transition: background 0.2s ease;
-      font-family: 'Inter', sans-serif; /* clean font */
     }
 
-    .toggle-btn:hover {
-      background: #222;
-    }
+    .toggle-btn:hover { background: #222; }
 
-    /* Members container with smooth animation */
     .members {
       margin-top: 10px;
       background: rgba(255,255,255,0.08);
@@ -140,16 +152,14 @@
       gap: 8px;
       border: 1px solid rgba(255,255,255,0.1);
 
-      max-height: 0;       /* hidden by default */
+      max-height: 0;
       opacity: 0;
       overflow: hidden;
       transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
-      font-family: 'Inter', sans-serif; /* clean font */
     }
 
-    /* Show members */
     .members.show {
-      max-height: 1000px; /* large enough to fit content */
+      max-height: 1000px;
       opacity: 1;
       padding: 12px;
     }
@@ -164,123 +174,193 @@
     }
 
     @media (max-width: 480px) {
-      .member {
-        width: 100%;
-      }
+      .member { width: 100%; }
     }
+
+    /* Total Hours Page */
+    .week-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .week-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .week-card:hover { transform: translateY(-2px); }
+
+    .hidden { display: none; }
+
   </style>
 </head>
 <body>
 
 <div class="app">
-  <div class="header">Shift 1 - Rider Schedule</div>
+  <div class="header" id="page-header">Shift 1 - Rider Schedule</div>
 
-  <div class="grid">
-
-    <!-- TEAM 1 -->
-    <div class="card">
-      <div class="card-title">Team 1</div>
-      <div class="badges">
-        <div class="badge BBCT">8 Dec · BBCT</div>
-        <div class="badge BBSS">9 Dec · BBSS</div>
-        <div class="badge ABMCT">10 Dec · ABMCT</div>
-        <div class="badge BBPB">11 Dec · BBPB</div>
-      </div>
-      <button class="toggle-btn" onclick="toggle(this)">View Members</button>
-      <div class="members">
-        <div class="member">1 Adik Tonni</div>
-        <div class="member">2 Aira Sofia</div>
-        <div class="member">3 Alex Xandra</div>
-        <div class="member">4 Apin Vixon</div>
-        <div class="member">5 Aslan Noah</div>
-        <div class="member">6 Ayden Justin</div>
-        <div class="member">7 Baka Yalol</div>
-        <div class="member">8 Bayizz</div>
-        <div class="member">9 Din Irwan</div>
-        <div class="member">10 Dyo X</div>
-      </div>
-    </div>
-
-    <!-- TEAM 2 -->
-    <div class="card">
-      <div class="card-title">Team 2</div>
-      <div class="badges">
-        <div class="badge BBSS">8 Dec · BBSS</div>
-        <div class="badge ABMCT">9 Dec · ABMCT</div>
-        <div class="badge BBPB">10 Dec · BBPB</div>
-        <div class="badge BBCT">11 Dec · BBCT</div>
-      </div>
-      <button class="toggle-btn" onclick="toggle(this)">View Members</button>
-      <div class="members">
-        <div class="member">11 EL Brian</div>
-        <div class="member">12 EL Washere</div>
-        <div class="member">13 Fasya Leleh</div>
-        <div class="member">14 Jesse Merlin</div>
-        <div class="member">15 JJA Hup Seng</div>
-        <div class="member">16 Keyz Jahat</div>
-        <div class="member">17 Knox Russo</div>
-        <div class="member">18 </div>
-        <div class="member">19 Kyle Harris</div>
-        <div class="member">20 Leman Man</div>
-      </div>
-    </div>
-
-    <!-- TEAM 3 -->
-    <div class="card">
-      <div class="card-title">Team 3</div>
-      <div class="badges">
-        <div class="badge ABMCT">8 Dec · ABMCT</div>
-        <div class="badge BBPB">9 Dec · BBPB</div>
-        <div class="badge BBCT">10 Dec · BBCT</div>
-        <div class="badge BBSS">11 Dec · BBSS</div>
-      </div>
-      <button class="toggle-btn" onclick="toggle(this)">View Members</button>
-      <div class="members">
-        <div class="member">21 Leman Troyee</div>
-        <div class="member">22 Lilz Badz</div>
-        <div class="member">23 M L</div>
-        <div class="member">24 Madmin Khalid</div>
-        <div class="member">25 Mael SiRoco</div>
-        <div class="member">26 Matt Dinn</div>
-        <div class="member">27 Mat Mil</div>
-        <div class="member">28 Mat Soud</div>
-        <div class="member">29 Mujibur OKU</div>
-        <div class="member">30 No One</div>
-      </div>
-    </div>
-
-    <!-- TEAM 4 -->
-    <div class="card">
-      <div class="card-title">Team 4</div>
-      <div class="badges">
-        <div class="badge BBPB">8 Dec · BBPB</div>
-        <div class="badge BBCT">9 Dec · BBCT</div>
-        <div class="badge BBSS">10 Dec · BBSS</div>
-        <div class="badge ABMCT">11 Dec · ABMCT</div>
-      </div>
-      <button class="toggle-btn" onclick="toggle(this)">View Members</button>
-      <div class="members">
-        <div class="member">31 Noa Quan</div>
-        <div class="member">32 Omar Kay</div>
-        <div class="member">33 Pojie Jie</div>
-        <div class="member">34 Rizkyy Nakata</div>
-        <div class="member">35 Royy Rompong</div>
-        <div class="member">36 Samud Senrose</div>
-        <div class="member">37 Tai Man</div>
-        <div class="member">38 Zack Macarov</div>
-        <div class="member">39 Zai Chi</div>
-        <div class="member">40 </div>
-      </div>
-    </div>
-
+  <div class="nav-buttons">
+    <button onclick="showPage('schedule')">Rider Schedule</button>
+    <button onclick="showPage('hours')">Total Hours</button>
   </div>
+
+  <!-- Rider Schedule -->
+  <div id="schedule">
+    <div class="grid">
+
+      <!-- TEAM 1 -->
+      <div class="card">
+        <div class="card-title">Team 1</div>
+        <div class="badges">
+          <div class="badge BBCT">8 Dec · BBCT</div>
+          <div class="badge BBSS">9 Dec · BBSS</div>
+          <div class="badge ABMCT">10 Dec · ABMCT</div>
+          <div class="badge BBPB">11 Dec · BBPB</div>
+        </div>
+        <button class="toggle-btn" onclick="toggle(this)">View Members</button>
+        <div class="members">
+          <div class="member">1 Adik Tonni</div>
+          <div class="member">2 Aira Sofia</div>
+          <div class="member">3 Alex Xandra</div>
+          <div class="member">4 Apin Vixon</div>
+          <div class="member">5 Aslan Noah</div>
+          <div class="member">6 Ayden Justin</div>
+          <div class="member">7 Baka Yalol</div>
+          <div class="member">8 Bayizz</div>
+          <div class="member">9 Din Irwan</div>
+          <div class="member">10 Dyo X</div>
+        </div>
+      </div>
+
+      <!-- TEAM 2 -->
+      <div class="card">
+        <div class="card-title">Team 2</div>
+        <div class="badges">
+          <div class="badge BBSS">8 Dec · BBSS</div>
+          <div class="badge ABMCT">9 Dec · ABMCT</div>
+          <div class="badge BBPB">10 Dec · BBPB</div>
+          <div class="badge BBCT">11 Dec · BBCT</div>
+        </div>
+        <button class="toggle-btn" onclick="toggle(this)">View Members</button>
+        <div class="members">
+          <div class="member">11 EL Brian</div>
+          <div class="member">12 EL Washere</div>
+          <div class="member">13 Fasya Leleh</div>
+          <div class="member">14 Jesse Merlin</div>
+          <div class="member">15 JJA Hup Seng</div>
+          <div class="member">16 Keyz Jahat</div>
+          <div class="member">17 Knox Russo</div>
+          <div class="member">18 </div>
+          <div class="member">19 Kyle Harris</div>
+          <div class="member">20 Leman Man</div>
+        </div>
+      </div>
+
+      <!-- TEAM 3 -->
+      <div class="card">
+        <div class="card-title">Team 3</div>
+        <div class="badges">
+          <div class="badge ABMCT">8 Dec · ABMCT</div>
+          <div class="badge BBPB">9 Dec · BBPB</div>
+          <div class="badge BBCT">10 Dec · BBCT</div>
+          <div class="badge BBSS">11 Dec · BBSS</div>
+        </div>
+        <button class="toggle-btn" onclick="toggle(this)">View Members</button>
+        <div class="members">
+          <div class="member">21 Leman Troyee</div>
+          <div class="member">22 Lilz Badz</div>
+          <div class="member">23 M L</div>
+          <div class="member">24 Madmin Khalid</div>
+          <div class="member">25 Mael SiRoco</div>
+          <div class="member">26 Matt Dinn</div>
+          <div class="member">27 Mat Mil</div>
+          <div class="member">28 Mat Soud</div>
+          <div class="member">29 Mujibur OKU</div>
+          <div class="member">30 No One</div>
+        </div>
+      </div>
+
+      <!-- TEAM 4 -->
+      <div class="card">
+        <div class="card-title">Team 4</div>
+        <div class="badges">
+          <div class="badge BBPB">8 Dec · BBPB</div>
+          <div class="badge BBCT">9 Dec · BBCT</div>
+          <div class="badge BBSS">10 Dec · BBSS</div>
+          <div class="badge ABMCT">11 Dec · ABMCT</div>
+        </div>
+        <button class="toggle-btn" onclick="toggle(this)">View Members</button>
+        <div class="members">
+          <div class="member">31 Noa Quan</div>
+          <div class="member">32 Omar Kay</div>
+          <div class="member">33 Pojie Jie</div>
+          <div class="member">34 Rizkyy Nakata</div>
+          <div class="member">35 Royy Rompong</div>
+          <div class="member">36 Samud Senrose</div>
+          <div class="member">37 Tai Man</div>
+          <div class="member">38 Zack Macarov</div>
+          <div class="member">39 Zai Chi</div>
+          <div class="member">40 </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Total Hours -->
+  <div id="hours" class="hidden">
+    <div class="week-list">
+      <div class="week-card">
+        <span>Week 1</span>
+        <span>56 hours</span>
+      </div>
+      <div class="week-card">
+        <span>Week 2</span>
+        <span>-</span>
+      </div>
+      <div class="week-card">
+        <span>Week 3</span>
+        <span>-</span>
+      </div>
+      <div class="week-card">
+        <span>Week 4</span>
+        <span>-</span>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
-function toggle(btn) {
-  const box = btn.nextElementSibling;
-  box.classList.toggle('show'); // toggle the animation
-}
+  function toggle(btn) {
+    const box = btn.nextElementSibling;
+    box.classList.toggle('show');
+  }
+
+  function showPage(page) {
+    const schedule = document.getElementById('schedule');
+    const hours = document.getElementById('hours');
+    const header = document.getElementById('page-header');
+
+    if(page === 'schedule') {
+      schedule.classList.remove('hidden');
+      hours.classList.add('hidden');
+      header.textContent = "Shift 1 - Rider Schedule";
+    } else {
+      schedule.classList.add('hidden');
+      hours.classList.remove('hidden');
+      header.textContent = "Shift 1 - Total Hours";
+    }
+  }
 </script>
 
 </body>
