@@ -1,148 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rotation Schedule</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rider Schedule</title>
 
-  <!-- Bebas Neue Font -->
+  <!-- Bebas Neue font -->
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 
   <style>
-    * {
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Bebas Neue', sans-serif;
-      letter-spacing: 0.08em;
     }
 
     body {
-      background: #f7f7f8;
+      background: #f5f5f5;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
       color: #111;
-      padding: 24px;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
     }
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 2.2rem;
-      margin-bottom: 24px;
-      letter-spacing: 0.15em;
-    }
-
-    .table-box {
-      background: white;
-      border-radius: 16px;
-      overflow-x: auto;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    }
-
-    table {
+    .app {
       width: 100%;
-      border-collapse: collapse;
-      min-width: 600px;
+      max-width: 1000px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
     }
 
-    th, td {
+    .header {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 42px;
+      letter-spacing: 3px;
+      margin-bottom: 30px;
       text-align: center;
-      padding: 16px 12px;
-      font-size: 1.1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      border: 1px solid #e1e1e1;
+      border-radius: 10px;
+      padding: 16px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .team-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 22px;
+      letter-spacing: 2px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e1e1e1;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #000;
+      color: #fff;
+      letter-spacing: 0.3px;
       white-space: nowrap;
     }
 
-    thead th {
-      background: #fafafa;
-      font-weight: normal;
-      border-bottom: 1px solid #eee;
+    .toggle-btn {
+      margin-top: 8px;
+      background: none;
+      border: none;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 16px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      padding: 8px 0;
+      border-top: 1px solid #e1e1e1;
+      color: #111;
     }
 
-    tbody tr {
-      border-bottom: 1px solid #f0f0f0;
+    .members {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      padding-top: 8px;
     }
 
-    tbody tr:last-child {
-      border-bottom: none;
+    .member {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    tbody tr:hover {
-      background: #f9f9f9;
-      transition: 0.2s ease;
+    .member::before {
+      content: "–";
+      color: #888;
     }
 
-    .team {
-      opacity: 0.7;
-      text-align: left;
-      padding-left: 20px;
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.6rem;
-      }
-      th, td {
-        font-size: 0.95rem;
-        padding: 12px 10px;
-      }
+    @media (max-width: 480px) {
+      .header { font-size: 32px; }
+      .team-title { font-size: 20px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>ROTATION SCHEDULE</h1>
+  <div class="app">
+    <div class="header">RIDER SCHEDULE</div>
 
-    <div class="table-box">
-      <table>
-        <thead>
-          <tr>
-            <th>Team</th>
-            <th>8 Dec</th>
-            <th>9 Dec</th>
-            <th>10 Dec</th>
-            <th>11 Dec</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="team">Team 1</td>
-            <td>BBCT</td>
-            <td>BBSS</td>
-            <td>ABMCT</td>
-            <td>BBPB</td>
-          </tr>
-          <tr>
-            <td class="team">Team 2</td>
-            <td>BBSS</td>
-            <td>ABMCT</td>
-            <td>BBPB</td>
-            <td>BBCT</td>
-          </tr>
-          <tr>
-            <td class="team">Team 3</td>
-            <td>ABMCT</td>
-            <td>BBPB</td>
-            <td>BBCT</td>
-            <td>BBSS</td>
-          </tr>
-          <tr>
-            <td class="team">Team 4</td>
-            <td>BBPB</td>
-            <td>BBCT</td>
-            <td>BBSS</td>
-            <td>ABMCT</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    <div class="grid">
 
-</body>
-</html>      <div class="card">
+      <!-- Team 1 -->
+      <div class="card">
+        <div class="team-title">TEAM 1</div>
+        <div class="badges">
+          <div class="badge">8 Dec — BBCT</div>
+          <div class="badge">9 Dec — BBSS</div>
+          <div class="badge">10 Dec — ABMCT</div>
+          <div class="badge">11 Dec — BBPB</div>
+        </div>
+        <button class="toggle-btn" onclick="toggleMembers(this)">VIEW MEMBERS</button>
+        <div class="members">
+          <div class="member">Rider A</div>
+          <div class="member">Rider B</div>
+          <div class="member">Rider C</div>
+          <div class="member">Rider D</div>
+        </div>
+      </div>
+
+      <!-- Team 2 -->
+      <div class="card">
+        <div class="team-title">TEAM 2</div>
+        <div class="badges">
+          <div class="badge">8 Dec — BBSS</div>
+          <div class="badge">9 Dec — ABMCT</div>
+          <div class="badge">10 Dec — BBPB</div>
+          <div class="badge">11 Dec — BBCT</div>
+        </div>
+        <button class="toggle-btn" onclick="toggleMembers(this)">VIEW MEMBERS</button>
+        <div class="members">
+          <div class="member">Rider E</div>
+          <div class="member">Rider F</div>
+          <div class="member">Rider G</div>
+          <div class="member">Rider H</div>
+        </div>
+      </div>
+
+      <!-- Team 3 -->
+      <div class="card">
         <div class="team-title">TEAM 3</div>
         <div class="badges">
           <div class="badge">8 Dec — ABMCT</div>
@@ -192,471 +215,5 @@
     }
   </script>
 
-</body>
-</html>    content: "—";
-    color: #aaa;
-  }
-
-  @media (max-width: 500px) {
-    .header {
-      font-size: 32px;
-    }
-  }
-</style>
-</head>
-<body>
-
-<div class="app">
-  <div class="header">RIDER SCHEDULE</div>
-
-  <div class="grid">
-
-    <!-- TEAM 1 -->
-    <div class="card">
-      <div class="team-title">TEAM 1</div>
-      <div class="badges">
-        <div class="badge">8 Dec — BBCT</div>
-        <div class="badge">9 Dec — BBSS</div>
-        <div class="badge">10 Dec — ABMCT</div>
-        <div class="badge">11 Dec — BBPB</div>
-      </div>
-      <button class="toggle-btn" onclick="toggle(this)">VIEW MEMBERS</button>
-      <div class="members">
-        <div class="member">Rider A</div>
-        <div class="member">Rider B</div>
-        <div class="member">Rider C</div>
-        <div class="member">Rider D</div>
-      </div>
-    </div>
-
-    <!-- TEAM 2 -->
-    <div class="card">
-      <div class="team-title">TEAM 2</div>
-      <div class="badges">
-        <div class="badge">8 Dec — BBSS</div>
-        <div class="badge">9 Dec — ABMCT</div>
-        <div class="badge">10 Dec — BBPB</div>
-        <div class="badge">11 Dec — BBCT</div>
-      </div>
-      <button class="toggle-btn" onclick="toggle(this)">VIEW MEMBERS</button>
-      <div class="members">
-        <div class="member">Rider E</div>
-        <div class="member">Rider F</div>
-        <div class="member">Rider G</div>
-        <div class="member">Rider H</div>
-      </div>
-    </div>
-
-    <!-- TEAM 3 -->
-    <div class="card">
-      <div class="team-title">TEAM 3</div>
-      <div class="badges">
-        <div class="badge">8 Dec — ABMCT</div>
-        <div class="badge">9 Dec — BBPB</div>
-        <div class="badge">10 Dec — BBCT</div>
-        <div class="badge">11 Dec — BBSS</div>
-      </div>
-      <button class="toggle-btn" onclick="toggle(this)">VIEW MEMBERS</button>
-      <div class="members">
-        <div class="member">Rider I</div>
-        <div class="member">Rider J</div>
-        <div class="member">Rider K</div>
-        <div class="member">Rider L</div>
-      </div>
-    </div>
-
-    <!-- TEAM 4 -->
-    <div class="card">
-      <div class="team-title">TEAM 4</div>
-      <div class="badges">
-        <div class="badge">8 Dec — BBPB</div>
-        <div class="badge">9 Dec — BBCT</div>
-        <div class="badge">10 Dec — BBSS</div>
-        <div class="badge">11 Dec — ABMCT</div>
-      </div>
-      <button class="toggle-btn" onclick="toggle(this)">VIEW MEMBERS</button>
-      <div class="members">
-        <div class="member">Rider M</div>
-        <div class="member">Rider N</div>
-        <div class="member">Rider O</div>
-        <div class="member">Rider P</div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<script>
-function toggle(btn) {
-  const box = btn.nextElementSibling;
-  const isOpen = box.style.display === "flex";
-
-  document.querySelectorAll('.members').forEach(m => m.style.display = "none");
-
-  if (!isOpen) {
-    box.style.display = "flex";
-  }
-}
-</script>
-
-</body>
-</html>    margin: 0;
-  }
-
-  .member-list li {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 500;
-    color: #fff;
-  }
-
-  .member-list li span.icon {
-    display: inline-block;
-    width: 20px;
-    text-align: center;
-  }
-
-  @media (max-width: 600px) {
-    .team-card { padding: 15px; }
-    .team-title { font-size: 1.1rem; }
-    .badge { font-size: 0.8rem; }
-  }
-
-</style>
-</head>
-<body>
-  <div class="dashboard">
-    <h1>Rider Schedule Dashboard</h1>
-
-    <!-- Team 1 -->
-    <div class="team-card">
-      <div class="team-title">Team 1</div>
-      <div class="schedule">
-        <div class="badge BBCT">8 Dec: BBCT</div>
-        <div class="badge BBSS">9 Dec: BBSS</div>
-        <div class="badge ABMCT">10 Dec: ABMCT</div>
-        <div class="badge BBPB">11 Dec: BBPB</div>
-      </div>
-      <div class="members">
-        <ul class="member-list">
-          <li><span class="icon">🏍️</span> Rider 1A</li>
-          <li><span class="icon">🏍️</span> Rider 1B</li>
-          <li><span class="icon">🏍️</span> Rider 1C</li>
-          <li><span class="icon">🏍️</span> Rider 1D</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Team 2 -->
-    <div class="team-card">
-      <div class="team-title">Team 2</div>
-      <div class="schedule">
-        <div class="badge BBSS">8 Dec: BBSS</div>
-        <div class="badge ABMCT">9 Dec: ABMCT</div>
-        <div class="badge BBPB">10 Dec: BBPB</div>
-        <div class="badge BBCT">11 Dec: BBCT</div>
-      </div>
-      <div class="members">
-        <ul class="member-list">
-          <li><span class="icon">🏍️</span> Rider 2A</li>
-          <li><span class="icon">🏍️</span> Rider 2B</li>
-          <li><span class="icon">🏍️</span> Rider 2C</li>
-          <li><span class="icon">🏍️</span> Rider 2D</li>
-        </ul>
-      </div>
-    </div>
-  .team-body ul li span.icon {
-    display: inline-block;
-    width: 18px;
-    text-align: center;
-  }
-
-  @media (max-width: 700px) {
-    .schedule { flex-direction: column; gap: 6px; }
-    h1 { font-size: 1.6rem; }
-  }
-</style>
-</head>
-<body>
-<div class="container">
-  <h1>Rider Schedule</h1>
-
-  <!-- Team 1 -->
-  <div class="team-card">
-    <div class="team-header" onclick="toggleCard(this)">
-      <div class="team-name">Team 1</div>
-      <div class="schedule">
-        <div class="badge BBCT">8 Dec: BBCT</div>
-        <div class="badge BBSS">9 Dec: BBSS</div>
-        <div class="badge ABMCT">10 Dec: ABMCT</div>
-        <div class="badge BBPB">11 Dec: BBPB</div>
-      </div>
-    </div>
-    <div class="team-body">
-      <ul>
-        <li><span class="icon">🏍️</span> Rider 1A</li>
-        <li><span class="icon">🏍️</span> Rider 1B</li>
-        <li><span class="icon">🏍️</span> Rider 1C</li>
-        <li><span class="icon">🏍️</span> Rider 1D</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Team 2 -->
-  <div class="team-card">
-    <div class="team-header" onclick="toggleCard(this)">
-      <div class="team-name">Team 2</div>
-      <div class="schedule">
-        <div class="badge BBSS">8 Dec: BBSS</div>
-        <div class="badge ABMCT">9 Dec: ABMCT</div>
-        <div class="badge BBPB">10 Dec: BBPB</div>
-        <div class="badge BBCT">11 Dec: BBCT</div>
-      </div>
-    </div>
-    <div class="team-body">
-      <ul>
-        <li><span class="icon">🏍️</span> Rider 2A</li>
-        <li><span class="icon">🏍️</span> Rider 2B</li>
-        <li><span class="icon">🏍️</span> Rider 2C</li>
-        <li><span class="icon">🏍️</span> Rider 2D</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Team 3 -->
-  <div class="team-card">
-    <div class="team-header" onclick="toggleCard(this)">
-      <div class="team-name">Team 3</div>
-      <div class="schedule">
-        <div class="badge ABMCT">8 Dec: ABMCT</div>
-        <div class="badge BBPB">9 Dec: BBPB</div>
-        <div class="badge BBCT">10 Dec: BBCT</div>
-        <div class="badge BBSS">11 Dec: BBSS</div>
-      </div>
-    </div>
-    <div class="team-body">
-      <ul>
-        <li><span class="icon">🏍️</span> Rider 3A</li>
-        <li><span class="icon">🏍️</span> Rider 3B</li>
-        <li><span class="icon">🏍️</span> Rider 3C</li>
-        <li><span class="icon">🏍️</span> Rider 3D</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Team 4 -->
-  <div class="team-card">
-    <div class="team-header" onclick="toggleCard(this)">
-      <div class="team-name">Team 4</div>
-      <div class="schedule">
-        <div class="badge BBPB">8 Dec: BBPB</div>
-        <div class="badge BBCT">9 Dec: BBCT</div>
-        <div class="badge BBSS">10 Dec: BBSS</div>
-        <div class="badge ABMCT">11 Dec: ABMCT</div>
-      </div>
-    </div>
-    <div class="team-body">
-      <ul>
-        <li><span class="icon">🏍️</span> Rider 4A</li>
-        <li><span class="icon">🏍️</span> Rider 4B</li>
-        <li><span class="icon">🏍️</span> Rider 4C</li>
-        <li><span class="icon">🏍️</span> Rider 4D</li>
-      </ul>
-    </div>
-  </div>
-
-</div>
-
-<script>
-function toggleCard(header){
-  const body = header.nextElementSibling;
-  if(body.classList.contains('open')){
-    body.style.maxHeight = null;
-    body.classList.remove('open');
-  } else {
-    body.style.maxHeight = body.scrollHeight + "px";
-    body.classList.add('open');
-  }
-}
-</script>
-</body>
-</html>
-  @media (max-width: 700px) { .schedule { flex-direction: column; } }
-</style>
-</head>
-<body>
-<div class="container">
-  <h1>Rider Schedule Dashboard</h1>
-
-  <!-- Team 1 -->
-  <div class="team-card" style="animation-delay:0.1s;">
-    <div class="team-header" onclick="toggleCard(this)">
-      <div class="team-name">Team 1</div>
-      <div class="schedule">
-        <div class="badge BBCT">8 Dec: BBCT</div>
-        <div class="badge BBSS">9 Dec: BBSS</div>
-        <div class="badge ABMCT">10 Dec: ABMCT</div>
-        <div class="badge BBPB">11 Dec: BBPB</div>
-      </div>
-    </div>
-    <div class="team-body">
-      <ul>
-        <li>Rider 1A</li>
-        <li>Rider 1B</li>
-        <li>Rider 1C</li>
-        <li>Rider 1D</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Team 2 -->
-  <div class="team-card" style="animation-delay:0.3s;">
-    <div class="team-header" onclick="toggleCard(this)">
-      <div class="team-name">Team 2</div>
-      <div class="schedule">
-        <div class="badge BBSS">8 Dec: BBSS</div>
-        <div class="badge ABMCT">9 Dec: ABMCT</div>
-        <div class="badge BBPB">10 Dec: BBPB</div>
-        <div class="badge BBCT">11 Dec: BBCT</div>
-      </div>
-    </div>
-    <div class="team-body">
-      <ul>
-        <li>Rider 2A</li>
-        <li>Rider 2B</li>
-        <li>Rider 2C</li>
-        <li>Rider 2D</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Team 3 -->
-  <div class="team-card" style="animation-delay:0.5s;">
-    <div class="team-header" onclick="toggleCard(this)">
-      <div class="team-name">Team 3</div>
-      <div class="schedule">
-        <div class="badge ABMCT">8 Dec: ABMCT</div>
-        <div class="badge BBPB">9 Dec: BBPB</div>
-        <div class="badge BBCT">10 Dec: BBCT</div>
-        <div class="badge BBSS">11 Dec: BBSS</div>
-      </div>
-    </div>
-    <div class="team-body">
-      <ul>
-        <li>Rider 3A</li>
-        <li>Rider 3B</li>
-        <li>Rider 3C</li>
-        <li>Rider 3D</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Team 4 -->
-  <div class="team-card" style="animation-delay:0.7s;">
-    <div class="team-header" onclick="toggleCard(this)">
-      <div class="team-name">Team 4</div>
-      <div class="schedule">
-        <div class="badge BBPB">8 Dec: BBPB</div>
-        <div class="badge BBCT">9 Dec: BBCT</div>
-        <div class="badge BBSS">10 Dec: BBSS</div>
-        <div class="badge ABMCT">11 Dec: ABMCT</div>
-      </div>
-    </div>
-    <div class="team-body">
-      <ul>
-        <li>Rider 4A</li>
-        <li>Rider 4B</li>
-        <li>Rider 4C</li>
-        <li>Rider 4D</li>
-      </ul>
-    </div>
-  </div>
-
-</div>
-
-<script>
-function toggleCard(header) {
-  const body = header.nextElementSibling;
-  if(body.classList.contains('open')){
-    body.style.maxHeight = null;
-    body.classList.remove('open');
-  } else {
-    body.style.maxHeight = body.scrollHeight + "px";
-    body.classList.add('open');
-  }
-}
-</script>
-</body>
-</html>
-    <!-- Team 1 -->
-    <div class="team-card">
-      <div class="team-header" onclick="toggleCard(this)">
-        Team 1 <span>8 Dec: BBCT | 9 Dec: BBSS | 10 Dec: ABMCT | 11 Dec: BBPB</span>
-      </div>
-      <div class="team-body">
-        <ul>
-          <li>Rider 1A</li>
-          <li>Rider 1B</li>
-          <li>Rider 1C</li>
-          <li>Rider 1D</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Team 2 -->
-    <div class="team-card">
-      <div class="team-header" onclick="toggleCard(this)">
-        Team 2 <span>8 Dec: BBSS | 9 Dec: ABMCT | 10 Dec: BBPB | 11 Dec: BBCT</span>
-      </div>
-      <div class="team-body">
-        <ul>
-          <li>Rider 2A</li>
-          <li>Rider 2B</li>
-          <li>Rider 2C</li>
-          <li>Rider 2D</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Team 3 -->
-    <div class="team-card">
-      <div class="team-header" onclick="toggleCard(this)">
-        Team 3 <span>8 Dec: ABMCT | 9 Dec: BBPB | 10 Dec: BBCT | 11 Dec: BBSS</span>
-      </div>
-      <div class="team-body">
-        <ul>
-          <li>Rider 3A</li>
-          <li>Rider 3B</li>
-          <li>Rider 3C</li>
-          <li>Rider 3D</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Team 4 -->
-    <div class="team-card">
-      <div class="team-header" onclick="toggleCard(this)">
-        Team 4 <span>8 Dec: BBPB | 9 Dec: BBCT | 10 Dec: BBSS | 11 Dec: ABMCT</span>
-      </div>
-      <div class="team-body">
-        <ul>
-          <li>Rider 4A</li>
-          <li>Rider 4B</li>
-          <li>Rider 4C</li>
-          <li>Rider 4D</li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-
-  <script>
-    function toggleCard(header) {
-      const body = header.nextElementSibling;
-      body.style.display = body.style.display === "block" ? "none" : "block";
-    }
-  </script>
 </body>
 </html>
