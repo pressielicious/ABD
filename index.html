@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rider Schedule</title>
 
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -16,10 +17,9 @@
     }
 
     body {
-      background: url('https://i.imgur.com/4cOzTo8.jpeg') no-repeat center center fixed;
-      background-size: cover;
+      background: #f6f6f6;
       min-height: 100vh;
-      padding: 20px;
+      padding: 30px 16px;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -28,112 +28,108 @@
 
     .app {
       width: 100%;
-      max-width: 1200px;
-      background: rgba(255,255,255,0.93);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      max-width: 900px;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.05);
     }
 
     .header {
       text-align: center;
       font-weight: 700;
-      font-size: 28px;
-      margin-bottom: 24px;
-      letter-spacing: 0.5px;
+      font-size: 26px;
+      margin-bottom: 30px;
+      letter-spacing: .4px;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      background: #fafafa;
+      border-radius: 18px;
+      padding: 20px;
+      border: 1px solid #eee;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+      gap: 16px;
+      text-align: center;
     }
 
     .card-title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
+      letter-spacing: .3px;
     }
 
     .badges {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 8px;
+      align-items: center;
     }
 
     .badge {
+      width: 100%;
+      max-width: 200px;
       font-size: 12px;
-      font-weight: 700;
-      padding: 6px 10px;
+      font-weight: 600;
+      padding: 8px 12px;
       border-radius: 999px;
-      white-space: nowrap;
       color: #fff;
-      letter-spacing: 0.3px;
+      text-align: center;
     }
 
     .BBCT { background: #ff5722; }
     .BBSS { background: #3f51b5; }
     .ABMCT { background: #009688; }
-    .BBPB { background: #ffc107; color:#000; }
+    .BBPB { background: #e0e0e0; color: #000; }
 
     .toggle-btn {
-      margin-top: 4px;
+      margin-top: 6px;
       padding: 10px;
-      border-radius: 10px;
+      border-radius: 999px;
       border: none;
       background: #000;
       color: #fff;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
       cursor: pointer;
-      transition: background 0.15s ease;
-    }
-
-    .toggle-btn:hover {
-      background: #222;
     }
 
     .members {
       margin-top: 10px;
-      background: #f4f4f4;
-      border-radius: 12px;
+      background: #fff;
+      border-radius: 14px;
       padding: 12px;
       display: none;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
+      border: 1px solid #eee;
     }
 
     .member {
-      font-size: 14px;
+      font-size: 13px;
       display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .member::before {
-      content: "🏍️";
-    }
-
-    /* Mobile Friendly Tweaks */
-    @media (max-width: 480px) {
-      .header {
-        font-size: 22px;
-      }
+      content: "•";
+      font-size: 18px;
+      line-height: 1;
     }
   </style>
 </head>
@@ -144,14 +140,13 @@
 
   <div class="grid">
 
-    <!-- TEAM 1 -->
     <div class="card">
       <div class="card-title">Team 1</div>
       <div class="badges">
-        <div class="badge BBCT">8 Dec – BBCT</div>
-        <div class="badge BBSS">9 Dec – BBSS</div>
-        <div class="badge ABMCT">10 Dec – ABMCT</div>
-        <div class="badge BBPB">11 Dec – BBPB</div>
+        <div class="badge BBCT">8 Dec · BBCT</div>
+        <div class="badge BBSS">9 Dec · BBSS</div>
+        <div class="badge ABMCT">10 Dec · ABMCT</div>
+        <div class="badge BBPB">11 Dec · BBPB</div>
       </div>
       <button class="toggle-btn" onclick="toggle(this)">View Members</button>
       <div class="members">
@@ -162,14 +157,13 @@
       </div>
     </div>
 
-    <!-- TEAM 2 -->
     <div class="card">
       <div class="card-title">Team 2</div>
       <div class="badges">
-        <div class="badge BBSS">8 Dec – BBSS</div>
-        <div class="badge ABMCT">9 Dec – ABMCT</div>
-        <div class="badge BBPB">10 Dec – BBPB</div>
-        <div class="badge BBCT">11 Dec – BBCT</div>
+        <div class="badge BBSS">8 Dec · BBSS</div>
+        <div class="badge ABMCT">9 Dec · ABMCT</div>
+        <div class="badge BBPB">10 Dec · BBPB</div>
+        <div class="badge BBCT">11 Dec · BBCT</div>
       </div>
       <button class="toggle-btn" onclick="toggle(this)">View Members</button>
       <div class="members">
@@ -180,14 +174,13 @@
       </div>
     </div>
 
-    <!-- TEAM 3 -->
     <div class="card">
       <div class="card-title">Team 3</div>
       <div class="badges">
-        <div class="badge ABMCT">8 Dec – ABMCT</div>
-        <div class="badge BBPB">9 Dec – BBPB</div>
-        <div class="badge BBCT">10 Dec – BBCT</div>
-        <div class="badge BBSS">11 Dec – BBSS</div>
+        <div class="badge ABMCT">8 Dec · ABMCT</div>
+        <div class="badge BBPB">9 Dec · BBPB</div>
+        <div class="badge BBCT">10 Dec · BBCT</div>
+        <div class="badge BBSS">11 Dec · BBSS</div>
       </div>
       <button class="toggle-btn" onclick="toggle(this)">View Members</button>
       <div class="members">
@@ -198,14 +191,13 @@
       </div>
     </div>
 
-    <!-- TEAM 4 -->
     <div class="card">
       <div class="card-title">Team 4</div>
       <div class="badges">
-        <div class="badge BBPB">8 Dec – BBPB</div>
-        <div class="badge BBCT">9 Dec – BBCT</div>
-        <div class="badge BBSS">10 Dec – BBSS</div>
-        <div class="badge ABMCT">11 Dec – ABMCT</div>
+        <div class="badge BBPB">8 Dec · BBPB</div>
+        <div class="badge BBCT">9 Dec · BBCT</div>
+        <div class="badge BBSS">10 Dec · BBSS</div>
+        <div class="badge ABMCT">11 Dec · ABMCT</div>
       </div>
       <button class="toggle-btn" onclick="toggle(this)">View Members</button>
       <div class="members">
