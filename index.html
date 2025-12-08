@@ -1,59 +1,125 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Senarai Team</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body { font-family: Arial, sans-serif; background:#f2f2f2; padding:20px; }
-    h2 { text-align:center; }
-    table { width:100%; border-collapse:collapse; background:#fff; }
-    th, td { border:1px solid #ddd; padding:8px; text-align:center; }
-    th { background:#222; color:#fff; }
-    tr:nth-child(even){ background:#f9f9f9; }
-    ul { margin:0; padding-left:15px; text-align:left; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Duty Roster</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; }
+  select, button { margin: 5px 0; padding: 5px; }
+  table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+  th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+  .team-name { cursor: pointer; color: blue; text-decoration: underline; }
+  .staff-list { display: none; margin-top: 5px; text-align: left; }
+</style>
 </head>
 <body>
 
-<h2>Senarai Team & Tempat</h2>
+<h2>Duty Roster Viewer</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>Kod Badan</th>
-      <th>Team</th>
-      <th>Tempat (Senarai)</th>
-    </tr>
-  </thead>
-  <tbody id="dataTable"></tbody>
-</table>
+<label>Company:</label>
+<select id="companySelect">
+  <option value="">--Select Company--</option>
+  <option value="BBCT">BBCT</option>
+  <option value="BBSS">BBSS</option>
+  <option value="ABMCT">ABMCT</option>
+  <option value="ABMSS">ABMSS</option>
+  <option value="BBPB">BBPB</option>
+</select>
+
+<br>
+
+<label>Team:</label>
+<select id="teamSelect">
+  <option value="">--Select Team--</option>
+</select>
+
+<br>
+
+<label>Start Date:</label>
+<input type="date" id="startDate">
+
+<br>
+<button onclick="showSchedule()">Show Schedule</button>
+
+<div id="schedule"></div>
 
 <script>
-const maxKod = 40;
-
-// Mapping team → tempat (ikut apa kau bagi)
-const teamTempat = {
-  1: ["BBCT", "BBSS", "ABMCT", "BBPB"],
-  2: ["BBSS", "ABMCT", "BBPB", "BBCT"],
-  3: ["ABMCT", "BBPB", "BBCT", "BBSS"],
-  4: ["BBPB", "BBCT", "BBSS", "ABMCT"]
+// Sample team data
+const teams = {
+  BBCT: { Team1: ["Alice","Bob","Charlie"], Team2: ["David","Eve","Frank"] },
+  BBSS: { Team1: ["Grace","Heidi","Ivan"], Team2: ["Judy","Ken","Leo"] },
+  ABMCT: { Team1: ["Mia","Nina","Oscar"], Team2: ["Paul","Quinn","Rita"] },
+  ABMSS: { Team1: ["Sam","Tina","Uma"], Team2: ["Victor","Wendy","Xander"] },
+  BBPB: { Team1: ["Yara","Zane","Alan"], Team2: ["Betty","Carl","Diana"] },
 };
 
-const tbody = document.getElementById("dataTable");
+// Populate team dropdown based on selected company
+document.getElementById("companySelect").addEventListener("change", function() {
+  const company = this.value;
+  const teamSelect = document.getElementById("teamSelect");
+  teamSelect.innerHTML = '<option value="">--Select Team--</option>';
+  if(company && teams[company]) {
+    Object.keys(teams[company]).forEach(team => {
+      const option = document.createElement("option");
+      option.value = team;
+      option.textContent = team;
+      teamSelect.appendChild(option);
+    });
+  }
+});
 
-for (let i = 1; i <= maxKod; i++) {
-  const teamNum = Math.floor((i - 1) / 10) + 1;
-  const tempatList = teamTempat[teamNum];
+// Show schedule
+function showSchedule() {
+  const company = document.getElementById("companySelect").value;
+  const team = document.getElementById("teamSelect").value;
+  const startDate = document.getElementById("startDate").value;
+  
+  if(!company || !team || !startDate) {
+    alert("Please select company, team, and start date!");
+    return;
+  }
+  
+  const scheduleDiv = document.getElementById("schedule");
+  scheduleDiv.innerHTML = "";
+  
+  const table = document.createElement("table");
+  const headerRow = document.createElement("tr");
+  
+  for(let i=0; i<4; i++) {
+    const date = new Date(startDate);
+    date.setDate(date.getDate() + i);
+    const th = document.createElement("th");
+    th.textContent = date.toDateString();
+    headerRow.appendChild(th);
+  }
+  
+  table.appendChild(headerRow);
+  
+  const teamRow = document.createElement("tr");
+  for(let i=0; i<4; i++) {
+    const td = document.createElement("td");
+    const teamName = document.createElement("div");
+    teamName.textContent = team;
+    teamName.className = "team-name";
+    
+    const staffList = document.createElement("div");
+    staffList.className = "staff-list";
+    staffList.innerHTML = teams[company][team].join("<br>");
+    
+    teamName.addEventListener("click", () => {
+      staffList.style.display = staffList.style.display === "none" ? "block" : "none";
+    });
+    
+    td.appendChild(teamName);
+    td.appendChild(staffList);
+    teamRow.appendChild(td);
+  }
+  
+  table.appendChild(teamRow);
+  scheduleDiv.appendChild(table);
+}
+</script>
 
-  const tempatHTML = tempatList.map(t => `<li>${t}</li>`).join("");
-
-  tbody.innerHTML += `
-    <tr>
-      <td>${i}</td>
-      <td>Team ${teamNum}</td>
-      <td>
-        <ul>
-          ${tempatHTML}
-        </ul>
-      </
+</body>
+</html>
