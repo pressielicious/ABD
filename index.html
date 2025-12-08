@@ -1,18 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Duty Rotations — Shared Sheet</title>
+  <meta charset="UTF-8">
+  <title>Senarai Team</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    .sheet { width: 100%; height: 100vh; border: none; }
+    body { font-family: Arial, sans-serif; background:#f2f2f2; padding:20px;}
+    table { width:100%; border-collapse:collapse; background:#fff;}
+    th,td { border:1px solid #ddd; padding:8px; text-align:center;}
+    th { background:#222; color:#fff;}
+    tr:nth-child(even){ background:#f9f9f9;}
   </style>
 </head>
 <body>
-  <iframe
-    class="sheet"
-    src="https://docs.google.com/spreadsheets/d/18OQxsWCwE6Juas74VrTjodKavTlVKkDpqSBYJC4ZQhw/edit?usp=sharing"
-  ></iframe>
+
+<h2>Senarai Team Ikut Group</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kod</th>
+      <th>Nama</th>
+      <th>8 Dec</th>
+      <th>9 Dec</th>
+      <th>10 Dec</th>
+      <th>11 Dec</th>
+    </tr>
+  </thead>
+  <tbody id="dataTable"></tbody>
+</table>
+
+<script>
+const ahli = [
+ "Adik Tonni","Aira Sofia","Alex Xandra","Apin Vixon","Aslan Noah",
+ "Ayden Justin","Baka Yalol","Bayizz","Din Irwan","Dyo X",
+ "EL Brian","EL Washere","Fasya Leleh","Jesse Merlin","JJA Hup Seng",
+ "Keyz Jahat","Knox Russo","","Kyle Harris","Leman Man",
+ "Leman Troyee","Lilz Badz","M L","Madmin Khalid","Mael SiRoco",
+ "Matt Dinn","Mat Mil","Mat Soud","Mujibur OKU","No One",
+ "Noa Quan","Omar Kay","Pojie Jie","Rizkyy Nakata","Royy Rompong",
+ "Samud Senrose","Tai Man","Zack Macarov","Zai Chi",""
+];
+
+const groupPattern = [
+ ["BBCT","BBSS","ABMCT","BBPB"],  // 1–10
+ ["BBSS","ABMCT","BBPB","BBCT"],  // 11–20
+ ["ABMCT","BBPB","BBCT","BBSS"],  // 21–30
+ ["BBPB","BBCT","BBSS","ABMCT"]   // 31–40
+];
+
+const tbody = document.getElementById("dataTable");
+
+ahli.forEach((nama, i) => {
+  const kod = i + 1;
+  const groupIndex = Math.floor(i / 10);
+  const teams = groupPattern[groupIndex];
+
+  const row = `
+    <tr>
+      <td>${kod}</td>
+      <td>${nama}</td>
+      <td>${teams[0]}</td>
+      <td>${teams[1]}</td>
+      <td>${teams[2]}</td>
+      <td>${teams[3]}</td>
+    </tr>
+  `;
+  tbody.innerHTML += row;
+});
+</script>
+
 </body>
 </html>
