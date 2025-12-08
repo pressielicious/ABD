@@ -15,100 +15,216 @@
     display: flex;
     justify-content: center;
     padding: 20px;
-    overflow-x: hidden;
+    color: #222;
   }
 
   .container {
     width: 100%;
     max-width: 1000px;
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.9);
     border-radius: 20px;
     padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-    animation: fadeIn 1s ease;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
   }
 
   h1 {
     font-family: 'Poppins', sans-serif;
     text-align: center;
-    font-size: 2.2rem;
-    color: #fff;
-    text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+    font-size: 2rem;
+    color: #2E7D32;
     margin-bottom: 40px;
   }
 
-  @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
-
   .team-card {
-    background: rgba(255,255,255,0.9);
+    background: #fff;
     border-radius: 15px;
     margin-bottom: 20px;
     overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-    transform: translateY(20px);
-    opacity: 0;
-    animation: cardFade 0.6s forwards;
-    animation-delay: 0.2s;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
     transition: transform 0.3s, box-shadow 0.3s;
   }
 
-  @keyframes cardFade { to { transform: translateY(0); opacity: 1; } }
-
-  .team-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+  .team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
 
   .team-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 18px 20px;
     cursor: pointer;
   }
 
-  .team-name { font-weight: 600; font-size: 1.2rem; color: #222; }
+  .team-name { font-weight: 600; font-size: 1.2rem; }
 
-  .schedule { display: flex; gap: 10px; flex-wrap: wrap; }
+  .schedule {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
 
   .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 6px 12px;
     border-radius: 12px;
     font-size: 0.85rem;
     font-weight: 600;
     color: white;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     transition: transform 0.3s, box-shadow 0.3s;
+    white-space: nowrap;
   }
 
-  .badge:hover { transform: scale(1.1); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+  .badge:hover { transform: scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
   .BBCT { background-color: #FF5722; }
   .BBSS { background-color: #3F51B5; }
   .ABMCT { background-color: #009688; }
-  .BBPB { background-color: #FFC107; }
+  .BBPB { background-color: #FFC107; color:#222; }
 
   .team-body {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease, padding 0.5s ease;
+    transition: max-height 0.4s ease, padding 0.4s ease;
     padding: 0 20px;
-    background-color: rgba(46,125,50,0.05);
+    background-color: #f1f8f5;
   }
 
   .team-body.open { padding: 15px 20px; }
 
-  .team-body ul { list-style: none; padding-left: 0; }
+  .team-body ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
   .team-body ul li {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
-    font-weight: 500;
     gap: 8px;
+    font-weight: 500;
   }
 
-  .team-body ul li::before {
-    content: "🏍️"; /* rider icon */
+  .team-body ul li span.icon {
+    display: inline-block;
+    width: 18px;
+    text-align: center;
   }
 
+  @media (max-width: 700px) {
+    .schedule { flex-direction: column; gap: 6px; }
+    h1 { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Rider Schedule</h1>
+
+  <!-- Team 1 -->
+  <div class="team-card">
+    <div class="team-header" onclick="toggleCard(this)">
+      <div class="team-name">Team 1</div>
+      <div class="schedule">
+        <div class="badge BBCT">8 Dec: BBCT</div>
+        <div class="badge BBSS">9 Dec: BBSS</div>
+        <div class="badge ABMCT">10 Dec: ABMCT</div>
+        <div class="badge BBPB">11 Dec: BBPB</div>
+      </div>
+    </div>
+    <div class="team-body">
+      <ul>
+        <li><span class="icon">🏍️</span> Rider 1A</li>
+        <li><span class="icon">🏍️</span> Rider 1B</li>
+        <li><span class="icon">🏍️</span> Rider 1C</li>
+        <li><span class="icon">🏍️</span> Rider 1D</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Team 2 -->
+  <div class="team-card">
+    <div class="team-header" onclick="toggleCard(this)">
+      <div class="team-name">Team 2</div>
+      <div class="schedule">
+        <div class="badge BBSS">8 Dec: BBSS</div>
+        <div class="badge ABMCT">9 Dec: ABMCT</div>
+        <div class="badge BBPB">10 Dec: BBPB</div>
+        <div class="badge BBCT">11 Dec: BBCT</div>
+      </div>
+    </div>
+    <div class="team-body">
+      <ul>
+        <li><span class="icon">🏍️</span> Rider 2A</li>
+        <li><span class="icon">🏍️</span> Rider 2B</li>
+        <li><span class="icon">🏍️</span> Rider 2C</li>
+        <li><span class="icon">🏍️</span> Rider 2D</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Team 3 -->
+  <div class="team-card">
+    <div class="team-header" onclick="toggleCard(this)">
+      <div class="team-name">Team 3</div>
+      <div class="schedule">
+        <div class="badge ABMCT">8 Dec: ABMCT</div>
+        <div class="badge BBPB">9 Dec: BBPB</div>
+        <div class="badge BBCT">10 Dec: BBCT</div>
+        <div class="badge BBSS">11 Dec: BBSS</div>
+      </div>
+    </div>
+    <div class="team-body">
+      <ul>
+        <li><span class="icon">🏍️</span> Rider 3A</li>
+        <li><span class="icon">🏍️</span> Rider 3B</li>
+        <li><span class="icon">🏍️</span> Rider 3C</li>
+        <li><span class="icon">🏍️</span> Rider 3D</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Team 4 -->
+  <div class="team-card">
+    <div class="team-header" onclick="toggleCard(this)">
+      <div class="team-name">Team 4</div>
+      <div class="schedule">
+        <div class="badge BBPB">8 Dec: BBPB</div>
+        <div class="badge BBCT">9 Dec: BBCT</div>
+        <div class="badge BBSS">10 Dec: BBSS</div>
+        <div class="badge ABMCT">11 Dec: ABMCT</div>
+      </div>
+    </div>
+    <div class="team-body">
+      <ul>
+        <li><span class="icon">🏍️</span> Rider 4A</li>
+        <li><span class="icon">🏍️</span> Rider 4B</li>
+        <li><span class="icon">🏍️</span> Rider 4C</li>
+        <li><span class="icon">🏍️</span> Rider 4D</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleCard(header){
+  const body = header.nextElementSibling;
+  if(body.classList.contains('open')){
+    body.style.maxHeight = null;
+    body.classList.remove('open');
+  } else {
+    body.style.maxHeight = body.scrollHeight + "px";
+    body.classList.add('open');
+  }
+}
+</script>
+</body>
+</html>
   @media (max-width: 700px) { .schedule { flex-direction: column; } }
 </style>
 </head>
